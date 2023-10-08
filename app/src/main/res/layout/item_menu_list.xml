@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_menu_item_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_menu_image"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_menu_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_usus" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_menu_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginStart="10dp"
+        android:alpha="0.8"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/menu_name"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/cv_menu_image"
+        app:layout_constraintStart_toEndOf="@+id/cv_menu_image"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_menu_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/menu_price"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_menu_name"
+        app:layout_constraintStart_toEndOf="@+id/cv_menu_image"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_menu_rating"
+        android:layout_width="28dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/baseline_star_rate_24"
+        app:layout_constraintStart_toEndOf="@+id/cv_menu_image"
+        app:layout_constraintTop_toBottomOf="@+id/tv_menu_price" />
+
+    <TextView
+        android:id="@+id/tv_menu_rating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_rate"
+        android:textColor="@color/app_color_primary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_menu_rating"
+        app:layout_constraintTop_toBottomOf="@+id/tv_menu_price"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/iv_menu_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_text"
+        android:textSize="0sp"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161" />
+
+    <TextView
+        android:id="@+id/tv_menu_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_text"
+        android:textSize="0sp"
+        android:textColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

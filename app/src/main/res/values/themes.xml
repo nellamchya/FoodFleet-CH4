@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.FoodFleet" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/app_color_primary</item>
+        <item name="colorOnPrimary">@color/app_color_on_primary</item>
+        <item name="colorPrimaryContainer">@color/app_color_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/app_color_on_primary_container</item>
+    </style>
+
+    <style name="Theme.FoodFleet" parent="Base.Theme.FoodFleet"/>
+</resources>

@@ -1,0 +1,46 @@
+<resources>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="app_name">FoodFleet App</string>
+    <string name="category_name">Nama Kategori</string>
+    <string name="menu_name">Nama Menu</string>
+    <string name="menu_price">Harga Menu</string>
+    <string name="menu_rate">4.9</string>
+    <string name="menu_list">Menu Makanan</string>
+    <string name="hello_tag">Hai Nellam, </string>
+    <string name="tagline">Mau makan apa hari ini?</string>
+    <string name="icon_profile">Icon Profile</string>
+    <string name="icon_shopping_cart">Icon Shopping Cart</string>
+    <string name="nama_menu">Nama Menu</string>
+    <string name="deskripsi_menu">Varian dari pangsit tradisional China yang disajikan dengan cara dikukus dan digoreng.</string>
+    <string name="location_complete">Jl. BSD Green Office Park Jl. BSD Grand Boulevard, Sampora, BSD, Kabupaten Tangerang, Banten 15345</string>
+    <string name="chartadd">Tambah ke Keranjang - Rp 0.000</string>
+    <string name="price">Rp 10.000</string>
+    <string name="cart">Cart</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="total_quantity">x%s</string>
+    <string name="a_description_of_the_tagline_text">A description of the tagline text</string>
+    <string name="cart_empty">Keranjang belanja kosong.</string>
+    <string name="empty_text">Teks yang tidak terlihat</string>
+    <string name="text_lokasi">Lokasi</string>
+    <string name="text_menu_recommendation">Menu Recommendation</string>
+    <string name="text_order">Order</string>
+    <string name="text_total_payment">Total Payment</string>
+    <string name="text_payment_summary">Payment Summary</string>
+    <string name="text_e_wallet">E-Wallet</string>
+    <string name="text_cash">Cash</string>
+    <string name="text_payment_method">Payment Method</string>
+    <string name="text_delivery">Delivery</string>
+    <string name="text_pick_up">Pick Up</string>
+    <string name="text_shipping_method">Shipping Method</string>
+    <string name="text_order_confirmation">Order Confirmation</string>
+    <string name="text_your_cart">Your Cart</string>
+    <string name="text_total_price">Total Price</string>
+</resources>
