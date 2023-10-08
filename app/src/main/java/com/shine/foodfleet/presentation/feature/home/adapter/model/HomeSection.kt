@@ -10,5 +10,5 @@ sealed class HomeSection(val id : Int) {
     data object HeaderSection : HomeSection(HomeAdapter.ITEM_TYPE_HEADER)
     data object BannerSection : HomeSection(HomeAdapter.ITEM_TYPE_BANNER)
     data class CategoriesSection(val data : List<Category>) : HomeSection(HomeAdapter.ITEM_TYPE_CATEGORY_LIST)
-    data class ProductsSection(val data : ResultWrapper<List<Menu>>) : HomeSection(HomeAdapter.ITEM_TYPE_PRODUCT_LIST)
+    data class ProductsSection(val data : ResultWrapper<List<Menu>>) : HomeSection(HomeAdapter.ITEM_TYPE_MENU_LIST)
 }

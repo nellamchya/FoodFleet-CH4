@@ -24,7 +24,7 @@
 
     <ImageView
         android:id="@+id/profileImage"
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_margin="16dp"
         android:contentDescription="@string/profile"
@@ -53,10 +53,10 @@
 
     <ImageView
         android:id="@+id/blok_profile_1"
-        android:layout_width="377dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/coloum_profile"
+        android:src="@drawable/bg_back"
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -79,10 +79,10 @@
 
     <ImageView
         android:id="@+id/blok_profile_2"
-        android:layout_width="377dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/coloum_profile"
+        android:src="@drawable/bg_back"
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -105,10 +105,10 @@
 
     <ImageView
         android:id="@+id/blok_profile_3"
-        android:layout_width="377dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/coloum_profile"
+        android:src="@drawable/bg_back"
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -117,9 +117,10 @@
 
     <TextView
         android:id="@+id/textTelepon"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_margin="16dp"
+        android:src="@drawable/bg_back"
         android:text="No.Telepon"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -131,10 +132,10 @@
 
     <ImageView
         android:id="@+id/blok_profile_4"
-        android:layout_width="377dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_margin="16dp"
-        android:src="@drawable/coloum_profile"
+        android:src="@drawable/bg_back"
         android:alpha="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

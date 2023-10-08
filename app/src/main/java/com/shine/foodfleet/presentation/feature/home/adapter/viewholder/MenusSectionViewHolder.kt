@@ -17,7 +17,7 @@ class MenusSectionViewHolder(
 ) : RecyclerView.ViewHolder(binding.root), ViewHolderBinder<HomeSection> {
     private val itemDecoration = GridSpacingItemDecoration(2, 48, true)
     init {
-        binding.rvMenuList.addItemDecoration(itemDecoration)
+        binding.rvMenuItemGrid.addItemDecoration(itemDecoration)
     }
     private val adapter: MenuListAdapter by lazy {
         MenuListAdapter {
@@ -31,7 +31,7 @@ class MenusSectionViewHolder(
                 binding.layoutState.root.isVisible = false
                 binding.layoutState.pbLoading.isVisible = false
                 binding.layoutState.tvError.isVisible = false
-                binding.rvMenuList.apply {
+                binding.rvMenuItemGrid.apply {
                     isVisible = true
                     adapter = this@MenusSectionViewHolder.adapter
                 }
@@ -40,13 +40,13 @@ class MenusSectionViewHolder(
                 binding.layoutState.root.isVisible = true
                 binding.layoutState.pbLoading.isVisible = true
                 binding.layoutState.tvError.isVisible = false
-                binding.rvMenuList.isVisible = false
+                binding.rvMenuItemGrid.isVisible = false
             }, doOnError = {
                 binding.layoutState.root.isVisible = true
                 binding.layoutState.pbLoading.isVisible = false
                 binding.layoutState.tvError.isVisible = true
                 binding.layoutState.tvError.text = item.data.exception?.message.orEmpty()
-                binding.rvMenuList.isVisible = false
+                binding.rvMenuItemGrid.isVisible = false
             })
         }
     }

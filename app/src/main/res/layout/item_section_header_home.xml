@@ -46,15 +46,6 @@
                 app:layout_constraintStart_toStartOf="@id/textViewHeader1"
                 app:layout_constraintTop_toTopOf="@id/textViewHeader1" />
 
-            <ImageView
-                android:id="@+id/imageViewChart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/icon_shopping_cart"
-                android:src="@drawable/baseline_shopping_cart_24"
-                app:layout_constraintStart_toEndOf="@+id/textViewHeader1"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageViewProfile"
@@ -63,7 +54,7 @@
                 android:layout_marginStart="8dp"
                 android:contentDescription="@string/icon_profile"
                 android:src="@drawable/ic_profile"
-                app:layout_constraintStart_toEndOf="@+id/imageViewChart"
+                app:layout_constraintStart_toEndOf="@+id/textViewHeader1"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

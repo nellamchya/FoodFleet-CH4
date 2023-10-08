@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.shine.foodfleet.R
 import com.shine.foodfleet.data.dummy.DummyCategoryDataSource
 import com.shine.foodfleet.data.dummy.DummyCategoryDataSourceImpl
 import com.shine.foodfleet.data.local.database.AppDatabase
@@ -15,6 +17,7 @@ import com.shine.foodfleet.data.repository.MenuRepository
 import com.shine.foodfleet.data.repository.MenuRepositoryImpl
 import com.shine.foodfleet.databinding.FragmentHomeBinding
 import com.shine.foodfleet.presentation.feature.detailmenu.DetailMenuActivity
+import com.shine.foodfleet.presentation.feature.home.adapter.AdapterLayoutMode
 import com.shine.foodfleet.presentation.feature.home.adapter.HomeAdapter
 import com.shine.utils.GenericViewModelFactory
 

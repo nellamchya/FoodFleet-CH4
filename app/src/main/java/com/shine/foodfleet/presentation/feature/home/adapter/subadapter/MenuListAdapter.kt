@@ -62,7 +62,7 @@ class MenuListAdapter(private val itemClick: (Menu) -> Unit) :
                 }
                 binding.tvMenuName.text = item.name
                 binding.tvMenuPrice.text = item.price.toCurrencyFormat()
-                binding.tvRatingMenu.text = item.rating.toString()
+                binding.tvMenuRating.text = item.rating.toString()
                 binding.tvMenuDesc.text = item.description
                 binding.tvMenuLocation.text = item.location
                 itemView.setOnClickListener { itemClick(this) }
