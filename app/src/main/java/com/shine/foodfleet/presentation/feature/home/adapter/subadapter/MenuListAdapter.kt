@@ -79,4 +79,15 @@ class MenuListAdapter(
     }
 
     override fun getItemCount(): Int = dataDiffer.currentList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return adapterLayoutMode.ordinal
+
+    }
+
+
+    fun refreshList() {
+        notifyItemRangeChanged(0,dataDiffer.currentList.size)
+    }
+
 }
