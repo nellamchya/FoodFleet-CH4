@@ -50,7 +50,7 @@ class DummyMenuDataSourceImpl() : DummyMenuDataSource {
             Menu(
                 5,
                 "Sushi",
-                18.000,
+                18000.0,
                 R.drawable.ic_sushi,
                 4.6,
                 "Gumpalan nasi yang dilapisi dengan potongan ikan segar, cocok untuk pencinta hidangan Jepang.",
@@ -59,7 +59,7 @@ class DummyMenuDataSourceImpl() : DummyMenuDataSource {
             Menu(
                 6,
                 "Ramen",
-                15.000,
+                15000.0,
                 R.drawable.ic_ramen,
                 4.0,
                 "Mie gandum dengan kuah kaldu lezat, dilengkapi dengan irisan daging dan sayuran.",
@@ -68,7 +68,7 @@ class DummyMenuDataSourceImpl() : DummyMenuDataSource {
             Menu(
                 7,
                 "Kentang Goreng",
-                12.000,
+                12000.0,
                 R.drawable.ic_kentang_goreng,
                 4.3,
                 "Kentang potong yang digoreng hingga renyah, cocok sebagai camilan atau pendamping hidangan.",

@@ -20,12 +20,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-        android:id="@+id/bt_switch"
+    <ImageView
+        android:id="@+id/iv_grid"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/ic_list"
+        android:src="@drawable/ic_grid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +36,6 @@
         android:nestedScrollingEnabled="true"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
         tools:listitem="@layout/item_menu_grid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +46,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="true"
-        android:visibility="gone"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:spanCount="2"
-        tools:listitem="@layout/item_menu_grid"
+        android:visibility="invisible"
+        tools:listitem="@layout/item_menu_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title_section_menu"/>

@@ -4,10 +4,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import com.shine.utils.PreferenceDataStoreHelper
 import kotlinx.coroutines.flow.Flow
 
-/**
-Written with love by Muhammad Hermas Yuda Pamungkas
-Github : https://github.com/hermasyp
- **/
+
 interface UserPreferenceDataSource {
     suspend fun getUserDarkModePref(): Boolean
     fun getUserDarkModePrefFlow(): Flow<Boolean>

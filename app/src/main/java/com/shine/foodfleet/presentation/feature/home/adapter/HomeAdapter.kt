@@ -76,7 +76,7 @@ class HomeAdapter(
                 )
             }
 
-            ITEM_TYPE_MENU_LIST -> {
+            ITEM_TYPE_PRODUCT_LIST -> {
                 MenusSectionViewHolder(
                     ItemSectionMenuListBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -108,7 +108,7 @@ class HomeAdapter(
             HomeSection.HeaderSection -> ITEM_TYPE_HEADER
             HomeSection.BannerSection -> ITEM_TYPE_BANNER
             is HomeSection.CategoriesSection -> ITEM_TYPE_CATEGORY_LIST
-            is HomeSection.ProductsSection -> ITEM_TYPE_MENU_LIST
+            is HomeSection.ProductsSection -> ITEM_TYPE_PRODUCT_LIST
         }
     }
 
@@ -116,6 +116,6 @@ class HomeAdapter(
         const val ITEM_TYPE_HEADER = 1
         const val ITEM_TYPE_BANNER = 2
         const val ITEM_TYPE_CATEGORY_LIST = 3
-        const val ITEM_TYPE_MENU_LIST = 4
+        const val ITEM_TYPE_PRODUCT_LIST = 4
     }
 }

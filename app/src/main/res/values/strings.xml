@@ -43,4 +43,5 @@
     <string name="text_order_confirmation">Order Confirmation</string>
     <string name="text_your_cart">Your Cart</string>
     <string name="text_total_price">Total Price</string>
+    <string name="text_empty">Teks yang tidak terlihat</string>
 </resources>

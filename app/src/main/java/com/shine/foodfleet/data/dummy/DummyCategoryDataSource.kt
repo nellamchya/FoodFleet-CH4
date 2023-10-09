@@ -26,6 +26,18 @@ class DummyCategoryDataSourceImpl() : DummyCategoryDataSource {
                 R.drawable.drink,
                 "Drink"
             ),
+            Category(
+                R.drawable.ic_meat,
+                "Meat"
+            ),
+            Category(
+                R.drawable.ic_fruit,
+                "Fruit"
+            ),
+            Category(
+                R.drawable.ic_vegetable,
+                "Vegetable"
+            ),
         )
     }
 
