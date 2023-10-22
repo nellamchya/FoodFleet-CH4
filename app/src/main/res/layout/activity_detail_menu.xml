@@ -55,7 +55,6 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@id/tv_menu_rating"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_menu_image"
                 tools:text="Ayam" />
@@ -69,7 +68,6 @@
                 android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@id/tv_menu_rating"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_menu_name"
                 tools:text="IDR. 20.000" />
@@ -112,25 +110,6 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_menu_location"
                 app:layout_constraintTop_toBottomOf="@id/tv_menu_location" />
-
-            <TextView
-                android:id="@+id/tv_menu_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_button_rounded_border_transparent"
-                android:drawablePadding="8dp"
-                android:ellipsize="end"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="4dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableLeftCompat="@drawable/baseline_star_rate_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_menu_image"
-                tools:text="4.5" />
 
             <TextView
                 android:id="@+id/tv_menu_desc"
