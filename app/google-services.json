@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "199871418550",
+    "project_id": "foodfleetapp-5",
+    "storage_bucket": "foodfleetapp-5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199871418550:android:a6fcde87bdf87efc591617",
+        "android_client_info": {
+          "package_name": "com.shine.foodfleet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBloJ7YNYSdiWlJLb_R8GfeoN-F18mFLUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
