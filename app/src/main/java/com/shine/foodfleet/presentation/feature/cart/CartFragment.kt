@@ -10,16 +10,17 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.shine.foodfleet.R
 import com.shine.foodfleet.data.local.database.AppDatabase
 import com.shine.foodfleet.data.local.database.datasource.CartDataSource
 import com.shine.foodfleet.data.local.database.datasource.CartDatabaseDataSource
+import com.shine.foodfleet.data.network.api.datasource.FoodFleetApiDataSource
+import com.shine.foodfleet.data.network.api.service.FoodFleetApiService
 import com.shine.foodfleet.data.repository.CartRepository
 import com.shine.foodfleet.data.repository.CartRepositoryImpl
 import com.shine.foodfleet.databinding.FragmentCartBinding
 import com.shine.foodfleet.model.Cart
-import com.shine.foodfleet.presentation.common.adapter.CartListAdapter
-import com.shine.foodfleet.presentation.common.adapter.CartListener
 import com.shine.foodfleet.presentation.feature.checkout.CheckoutActivity
 import com.shine.utils.GenericViewModelFactory
 import com.shine.utils.proceedWhen
@@ -32,8 +33,11 @@ class CartFragment : Fragment() {
     private val viewModel: CartViewModel by viewModels {
         val database = AppDatabase.getInstance(requireContext())
         val cartDao = database.cartDao()
-        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource)
+        val cartDataSource = CartDatabaseDataSource(cartDao)
+        val chuckerInterceptor = ChuckerInterceptor(requireContext().applicationContext)
+        val service = FoodFleetApiService.invoke(chuckerInterceptor)
+        val apiDataSource = FoodFleetApiDataSource(service)
+        val repo: CartRepository = CartRepositoryImpl(cartDataSource, apiDataSource)
         GenericViewModelFactory.create(CartViewModel(repo))
     }
 
@@ -65,6 +69,7 @@ class CartFragment : Fragment() {
         return binding.root
     }
 
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,7 +99,7 @@ class CartFragment : Fragment() {
                     binding.layoutState.pbLoading.isVisible = false
                     binding.layoutState.tvError.isVisible = false
                     result.payload?.let { (carts,totalPrice) ->
-                        adapter.submitData(carts)
+                        adapter.setData(carts)
                         binding.tvTotalPrice.text = totalPrice.toCurrencyFormat()
                     }
                 },
@@ -119,5 +124,6 @@ class CartFragment : Fragment() {
             )
         }
     }
+
 
 }

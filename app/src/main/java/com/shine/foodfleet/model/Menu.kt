@@ -1,16 +1,16 @@
 package com.shine.foodfleet.model
 
 import android.os.Parcelable
-import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
+import java.util.UUID
 
 @Parcelize
 data class Menu(
     val id: Int? = null,
-    val name: String,
-    val price: Double,
-    @DrawableRes val imageResourceId: Int,
-    val rating: Double,
-    val description: String,
-    val location: String
+    val menuName: String,
+    val menuDescription: String,
+    val menuPrice: Int,
+    val menuFormattedPrice: String,
+    val menuImageUrl: String,
+    val menuShopLocation: String,
 ) : Parcelable

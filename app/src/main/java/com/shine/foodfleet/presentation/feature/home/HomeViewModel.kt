@@ -5,26 +5,50 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.shine.foodfleet.data.local.datastore.UserPreferenceDataSource
 import com.shine.foodfleet.data.repository.MenuRepository
+import com.shine.foodfleet.model.Category
 import com.shine.foodfleet.model.Menu
-import com.shine.foodfleet.presentation.feature.home.adapter.model.HomeSection
 import com.shine.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 
-class HomeViewModel(private val repo: MenuRepository) : ViewModel() {
+class HomeViewModel(
+    private val repository: MenuRepository,
+    private val userPreferenceDataSource: UserPreferenceDataSource
+) : ViewModel() {
 
-    val homeData : LiveData<List<HomeSection>>
-        get() = repo.getMenus().map {
-            mapToHomeData(it)
-        }.asLiveData(Dispatchers.IO)
+    private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
+    val categories : LiveData<ResultWrapper<List<Category>>>
+        get() = _categories
 
-    private fun mapToHomeData(productResult : ResultWrapper<List<Menu>>): List<HomeSection> = listOf(
-        HomeSection.HeaderSection,
-        HomeSection.BannerSection,
-        HomeSection.CategoriesSection(repo.getCategories()),
-        HomeSection.ProductsSection(productResult),
-    )
+    private val _menus = MutableLiveData<ResultWrapper<List<Menu>>>()
+    val menus : LiveData<ResultWrapper<List<Menu>>>
+        get() = _menus
+
+    val userLayoutMode = userPreferenceDataSource.getUserLayoutModePrefFlow().asLiveData(Dispatchers.IO)
+
+    fun getCategories(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getCategories().collect{
+                _categories.postValue(it)
+            }
+        }
+    }
+
+    fun getMenus(category: String? = null){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getMenus(if(category == "all") null else category).collect{
+                _menus.postValue(it)
+            }
+        }
+    }
+
+    fun setUserLayoutMode(layoutMode: Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            userPreferenceDataSource.setUserLayoutModePref(layoutMode)
+        }
+    }
+
 }

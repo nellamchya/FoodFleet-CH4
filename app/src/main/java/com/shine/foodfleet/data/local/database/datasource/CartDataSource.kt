@@ -2,28 +2,36 @@ package com.shine.foodfleet.data.local.database.datasource
 
 import com.shine.foodfleet.data.local.database.dao.CartDao
 import com.shine.foodfleet.data.local.database.entity.CartEntity
-import com.shine.foodfleet.data.local.database.relation.CartMenuRelation
 import kotlinx.coroutines.flow.Flow
 
 interface CartDataSource {
-    fun getAllCarts(): Flow<List<CartMenuRelation>>
-    fun getCartById(cartId: Int): Flow<CartMenuRelation>
-    suspend fun insertCart(cart: CartEntity) : Long
+
+    fun getAllCarts(): Flow<List<CartEntity>>
+    fun getCartById(cartId: Int): Flow<CartEntity>
+    suspend fun insertCart(cart: CartEntity): Long
+    suspend fun insertCarts(cart: List<CartEntity>)
     suspend fun deleteCart(cart: CartEntity): Int
     suspend fun updateCart(cart: CartEntity): Int
+    suspend fun deleteAllCartItems()
 }
 
-class CartDatabaseDataSource(private val cartDao: CartDao) : CartDataSource {
-    override fun getAllCarts(): Flow<List<CartMenuRelation>> {
+class CartDatabaseDataSource(
+    private val cartDao : CartDao
+) : CartDataSource{
+    override fun getAllCarts(): Flow<List<CartEntity>> {
         return cartDao.getAllCarts()
     }
 
-    override fun getCartById(cartId: Int): Flow<CartMenuRelation> {
+    override fun getCartById(cartId: Int): Flow<CartEntity> {
         return cartDao.getCartById(cartId)
     }
 
     override suspend fun insertCart(cart: CartEntity): Long {
         return cartDao.insertCart(cart)
+    }
+
+    override suspend fun insertCarts(cart: List<CartEntity>) {
+        return cartDao.insertCarts(cart)
     }
 
     override suspend fun deleteCart(cart: CartEntity): Int {
@@ -32,6 +40,10 @@ class CartDatabaseDataSource(private val cartDao: CartDao) : CartDataSource {
 
     override suspend fun updateCart(cart: CartEntity): Int {
         return cartDao.updateCart(cart)
+    }
+
+    override suspend fun deleteAllCartItems() {
+        return cartDao.deleteAllCartItems()
     }
 
 }

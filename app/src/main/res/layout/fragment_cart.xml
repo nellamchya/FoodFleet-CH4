@@ -11,7 +11,7 @@
         android:id="@+id/ll_action_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="8dp"
+        android:elevation="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,8 +21,9 @@
             style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/app_color_on_primary"
             android:layout_marginHorizontal="16dp"
+            android:textSize="18sp"
             android:text="@string/text_your_cart"
             android:textAlignment="center"
             android:textStyle="bold" />
@@ -90,11 +91,10 @@
 
             <Button
                 android:id="@+id/btn_checkout"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="Checkout"
-                android:textColor="@color/app_color_primary_container"
-                android:background="@drawable/bt_button"
+                android:text="@string/text_checkout"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

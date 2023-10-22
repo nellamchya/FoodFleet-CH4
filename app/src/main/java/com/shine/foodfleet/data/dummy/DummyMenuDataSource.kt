@@ -1,79 +1,34 @@
 package com.shine.foodfleet.data.dummy
 
-import com.shine.foodfleet.R
 import com.shine.foodfleet.model.Menu
 
 
 interface DummyMenuDataSource {
-    fun getMenuList(): List<Menu>
+    fun getMenus(): List<Menu>
 }
 
 class DummyMenuDataSourceImpl() : DummyMenuDataSource {
-    override fun getMenuList(): List<Menu> {
+    override fun getMenus(): List<Menu> {
         return listOf(
             Menu(
                 1,
-                "Ayam Goreng",
-                20000.0,
-                R.drawable.ic_ayamm,
-                4.5,
-                "Potongan ayam yang digoreng garing dengan rempah-rempah, cocok untuk pecinta makanan gurih.",
-                "Lokasi Restoran XYZ"
+                "French Fries",
+                "These burger patties are made with ground beef and an easy bread crumb mixture. Nothing beats a simple hamburger on a warm summer evening. Pile these burgers with your favorite condiments and pop open a cool drink!",
+                25000,
+                "Rp. 25.000",
+                "https://images.tokopedia.net/img/cache/250-square/hDjmkQ/2022/6/3/96472a39-7a63-4179-9f7d-44cf0959982a.png",
+                "Jl. BSD Green Office Park Jl. BSD Grand Boulevard, Sampora, BSD, Kabupaten Tangerang, Banten 15345"
             ),
             Menu(
                 2,
-                "Burger",
-                25000.0,
-                R.drawable.ic_burger,
-                4.2,
-                "Burger lezat dengan patty daging, sayuran segar dan saus spesial.",
-                "Lokasi Restoran XYZ"
+                "French Fries",
+                "These burger patties are made with ground beef and an easy bread crumb mixture. Nothing beats a simple hamburger on a warm summer evening. Pile these burgers with your favorite condiments and pop open a cool drink!",
+                25000,
+                "Rp. 25.000",
+                "https://images.tokopedia.net/img/cache/250-square/hDjmkQ/2022/6/3/96472a39-7a63-4179-9f7d-44cf0959982a.png",
+                "Jl. BSD Green Office Park Jl. BSD Grand Boulevard, Sampora, BSD, Kabupaten Tangerang, Banten 15345",
             ),
-            Menu(
-                3,
-                "Sate Ayam",
-                30000.0,
-                R.drawable.ic_sate_ayam,
-                4.8,
-                "Potongan-potongan ayam yang dipanggang dengan bumbu kacang khas, memberikan cita rasa manis dan pedas.",
-                "Lokasi Restoran XYZ"
-            ),
-            Menu(
-                4,
-                "Spaghetti",
-                22000.0,
-                R.drawable.ic_spaghetti,
-                4.4,
-                "Pasta lezat dengan saus tomat dan daging cincang, disajikan dengan keju parmesan yang meleleh.",
-                "Lokasi Restoran XYZ"
-            ),
-            Menu(
-                5,
-                "Sushi",
-                18000.0,
-                R.drawable.ic_sushi,
-                4.6,
-                "Gumpalan nasi yang dilapisi dengan potongan ikan segar, cocok untuk pencinta hidangan Jepang.",
-                "Lokasi Restoran XYZ"
-            ),
-            Menu(
-                6,
-                "Ramen",
-                15000.0,
-                R.drawable.ic_ramen,
-                4.0,
-                "Mie gandum dengan kuah kaldu lezat, dilengkapi dengan irisan daging dan sayuran.",
-                "Lokasi Restoran XYZ"
-            ),
-            Menu(
-                7,
-                "Kentang Goreng",
-                12000.0,
-                R.drawable.ic_kentang_goreng,
-                4.3,
-                "Kentang potong yang digoreng hingga renyah, cocok sebagai camilan atau pendamping hidangan.",
-                "Lokasi Restoran XYZ"
+
             )
-        )
     }
 }

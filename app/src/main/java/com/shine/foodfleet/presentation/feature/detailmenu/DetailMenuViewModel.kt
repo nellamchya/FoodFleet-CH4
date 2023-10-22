@@ -31,27 +31,25 @@ class DetailMenuViewModel(
     fun add() {
         val count = (menuCountLiveData.value ?: 0) + 1
         menuCountLiveData.postValue(count)
-        priceLiveData.postValue(menu?.price?.times(count) ?: 0.0)
+        priceLiveData.postValue((menu?.menuPrice?.times(count) ?: 0).toDouble())
     }
-
     fun minus() {
-        if ((menuCountLiveData.value ?: 0) > 0) {
-            val count = (menuCountLiveData.value ?: 0) - 1
-            menuCountLiveData.postValue(count)
-            priceLiveData.postValue(menu?.price?.times(count) ?: 0.0)
-        }
+        val count = (menuCountLiveData.value ?: 0) - 1
+        if ((menuCountLiveData.value ?: 0) <= 0) return
+        menuCountLiveData.postValue(count)
+        priceLiveData.postValue((menu?.menuPrice?.times(count) ?: 0).toDouble())
     }
 
     fun addToCart() {
         viewModelScope.launch {
-            val menuQty =
+            val menuQuantity =
                 if ((menuCountLiveData.value ?: 0) <= 0) {
                     return@launch
                 } else {
                     menuCountLiveData.value ?: 0
                 }
             menu?.let {
-                cartRepository.createCart(it, menuQty).collect() { result ->
+                cartRepository.createCart(it, menuQuantity).collect() { result ->
                     _addToCartResult.postValue(result)
                 }
             }

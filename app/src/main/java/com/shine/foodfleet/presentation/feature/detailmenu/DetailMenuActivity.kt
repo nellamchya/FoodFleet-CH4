@@ -10,9 +10,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import coil.load
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.shine.foodfleet.data.local.database.AppDatabase
 import com.shine.foodfleet.data.local.database.datasource.CartDataSource
 import com.shine.foodfleet.data.local.database.datasource.CartDatabaseDataSource
+import com.shine.foodfleet.data.network.api.datasource.FoodFleetApiDataSource
+import com.shine.foodfleet.data.network.api.service.FoodFleetApiService
 import com.shine.foodfleet.data.repository.CartRepository
 import com.shine.foodfleet.data.repository.CartRepositoryImpl
 import com.shine.foodfleet.databinding.ActivityDetailMenuBinding
@@ -31,10 +34,11 @@ class DetailMenuActivity : AppCompatActivity() {
         val database = AppDatabase.getInstance(this)
         val cartDao = database.cartDao()
         val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource)
-        GenericViewModelFactory.create(
-            DetailMenuViewModel(intent?.extras, repo)
-        )
+        val chuckerInterceptor = ChuckerInterceptor(this.applicationContext)
+        val service = FoodFleetApiService.invoke(chuckerInterceptor)
+        val apiDataSource = FoodFleetApiDataSource(service)
+        val repo: CartRepository = CartRepositoryImpl(cartDataSource, apiDataSource)
+        GenericViewModelFactory.create(DetailMenuViewModel(intent?.extras, repo))
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -86,14 +90,11 @@ class DetailMenuActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     private fun bindMenu(menu: Menu?) {
         menu?.let { item ->
-            binding.ivMenuImage.load(item.imageResourceId) {
-                crossfade(true)
-            }
-            binding.tvMenuName.text = item.name
-            binding.tvMenuDesc.text = item.description
-            binding.tvMenuPrice.text = item.price.toCurrencyFormat()
-            binding.tvMenuRating.text = item.rating.toString()
-            binding.tvDescLocation.text = item.location
+            binding.ivMenuImage.load(item.menuImageUrl)
+            binding.tvMenuName.text = item.menuName
+            binding.tvMenuDesc.text = item.menuDescription
+            binding.tvMenuPrice.text = item.menuPrice.toCurrencyFormat()
+            binding.tvDescLocation.text = item.menuShopLocation
         }
     }
 

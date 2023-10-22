@@ -13,7 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="110dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        app:cardElevation="8dp"
         tools:ignore="MissingConstraints"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,6 +23,7 @@
             android:id="@+id/iv_menu_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_usus" />
 
@@ -34,8 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="18dp"
         android:alpha="0.8"
+        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/menu_name"
         android:textColor="@color/black"
@@ -50,34 +52,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="@string/menu_price"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/tv_menu_name"
         app:layout_constraintStart_toEndOf="@+id/cv_menu_image"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/iv_menu_rating"
-        android:layout_width="28dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/baseline_star_rate_24"
-        app:layout_constraintStart_toEndOf="@+id/cv_menu_image"
-        app:layout_constraintTop_toBottomOf="@+id/tv_menu_price" />
-
-    <TextView
-        android:id="@+id/tv_menu_rating"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_rate"
-        android:textColor="@color/app_color_primary"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/iv_menu_rating"
-        app:layout_constraintTop_toBottomOf="@+id/tv_menu_price"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="IDR 0"/>
 
     <TextView
         android:id="@+id/iv_menu_desc"

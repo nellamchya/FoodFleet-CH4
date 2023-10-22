@@ -3,9 +3,11 @@ package com.shine.foodfleet.data.repository
 import com.shine.foodfleet.data.local.database.datasource.CartDataSource
 import com.shine.foodfleet.data.local.database.entity.CartEntity
 import com.shine.foodfleet.data.local.database.mapper.toCartEntity
-import com.shine.foodfleet.data.local.database.mapper.toCartMenuList
+import com.shine.foodfleet.data.local.database.mapper.toCartList
+import com.shine.foodfleet.data.network.api.datasource.FoodFleetDataSource
+import com.shine.foodfleet.data.network.api.model.order.OrderItemRequest
+import com.shine.foodfleet.data.network.api.model.order.OrderRequest
 import com.shine.foodfleet.model.Cart
-import com.shine.foodfleet.model.CartMenu
 import com.shine.foodfleet.model.Menu
 import com.shine.utils.ResultWrapper
 import com.shine.utils.proceed
@@ -19,47 +21,59 @@ import java.lang.IllegalStateException
 
 
 interface CartRepository {
-    fun getUserCartData(): Flow<ResultWrapper<Pair<List<CartMenu>, Double>>>
-    suspend fun createCart(menu: Menu, totalQuantity: Int): Flow<ResultWrapper<Boolean>>
+    fun getCartData(): Flow<ResultWrapper<Pair<List<Cart>, Int>>>
+    suspend fun createCart(menu: Menu, totalQty: Int): Flow<ResultWrapper<Boolean>>
     suspend fun decreaseCart(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun increaseCart(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun setCartNotes(item: Cart): Flow<ResultWrapper<Boolean>>
     suspend fun deleteCart(item: Cart): Flow<ResultWrapper<Boolean>>
+    suspend fun deleteAllCart()
+    suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>>
 }
 
 class CartRepositoryImpl(
-    private val dataSource: CartDataSource
+    private val cartDataSource: CartDataSource,
+    private val foodFleetDataSource: FoodFleetDataSource
 ) : CartRepository {
-
-    override fun getUserCartData(): Flow<ResultWrapper<Pair<List<CartMenu>, Double>>> {
-        return dataSource.getAllCarts().map {
-            proceed {
-                val cartList = it.toCartMenuList()
-                val totalPrice = cartList.sumOf {
-                    val quantity = it.cart.itemQuantity
-                    val pricePerItem = it.menu.price
-                    quantity * pricePerItem
+    override fun getCartData(): Flow<ResultWrapper<Pair<List<Cart>, Int>>> {
+        return cartDataSource.getAllCarts()
+            .map {
+                proceed {
+                    val result = it.toCartList()
+                    val totalPrice = result.sumOf {
+                        val qty = it.itemQuantity
+                        val pricePerItem = it.menuPrice
+                        qty * pricePerItem
+                    }
+                    Pair(result, totalPrice)
                 }
-                Pair(cartList, totalPrice)
+            }.map {
+                if (it.payload?.first?.isEmpty() == true)
+                    ResultWrapper.Empty(it.payload)
+                else
+                    it
+            }.onStart {
+                emit(ResultWrapper.Loading())
+                delay(2000)
             }
-        }.onStart {
-            emit(ResultWrapper.Loading())
-            delay(2000)
-        }
     }
-    override suspend fun createCart(
-        menu: Menu,
-        totalQuantity: Int
-    ): Flow<ResultWrapper<Boolean>> {
-        return menu.id?.let {menuId ->
+
+    override suspend fun createCart(menu: Menu, totalQty: Int): Flow<ResultWrapper<Boolean>> {
+        return menu.id?.let{ menuId ->
             proceedFlow {
-                val affectedRow = dataSource.insertCart(
-                    CartEntity(menuId = menuId, itemQuantity = totalQuantity)
+                val affectedRow = cartDataSource.insertCart(
+                    CartEntity(
+                        menuId = menuId,
+                        itemQuantity = totalQty,
+                        menuImgUrl = menu.menuImageUrl,
+                        menuPrice =  menu.menuPrice,
+                        menuName = menu.menuName
+                    )
                 )
                 affectedRow > 0
             }
         } ?: flow {
-            emit(ResultWrapper.Error(IllegalStateException("Product ID not found")))
+            emit(ResultWrapper.Error(IllegalStateException("Menu ID not found")))
         }
     }
 
@@ -68,9 +82,9 @@ class CartRepositoryImpl(
             itemQuantity -= 1
         }
         return if (modifiedCart.itemQuantity <= 0) {
-            proceedFlow { dataSource.deleteCart(modifiedCart.toCartEntity()) > 0 }
+            proceedFlow { cartDataSource.deleteCart(modifiedCart.toCartEntity()) > 0 }
         } else {
-            proceedFlow { dataSource.updateCart(modifiedCart.toCartEntity()) > 0 }
+            proceedFlow { cartDataSource.updateCart(modifiedCart.toCartEntity()) > 0 }
         }
     }
 
@@ -78,15 +92,30 @@ class CartRepositoryImpl(
         val modifiedCart = item.copy().apply {
             itemQuantity += 1
         }
-        return proceedFlow { dataSource.updateCart(modifiedCart.toCartEntity()) > 0 }
+        return proceedFlow { cartDataSource.updateCart(modifiedCart.toCartEntity()) > 0 }
     }
 
     override suspend fun setCartNotes(item: Cart): Flow<ResultWrapper<Boolean>> {
-        return proceedFlow { dataSource.updateCart(item.toCartEntity()) > 0 }
+        return proceedFlow { cartDataSource.updateCart(item.toCartEntity()) > 0 }
     }
 
     override suspend fun deleteCart(item: Cart): Flow<ResultWrapper<Boolean>> {
-        return proceedFlow { dataSource.deleteCart(item.toCartEntity()) > 0 }
+        return proceedFlow { cartDataSource.deleteCart(item.toCartEntity()) > 0 }
     }
+
+    override suspend fun deleteAllCart() {
+        return cartDataSource.deleteAllCartItems()
+    }
+
+    override suspend fun order(items: List<Cart>): Flow<ResultWrapper<Boolean>> {
+        return proceedFlow {
+            val orderItems = items.map {
+                OrderItemRequest(it.menuName, it.itemQuantity, it.itemNotes, it.menuPrice)
+            }
+            val orderRequest = OrderRequest(orderItems)
+            foodFleetDataSource.createOrder(orderRequest).status == true
+        }
+    }
+
 }
 

@@ -4,42 +4,33 @@ import com.shine.foodfleet.R
 import com.shine.foodfleet.model.Category
 
 interface DummyCategoryDataSource {
-    fun getMenuCategory(): List<Category>
+    fun getCategories(): List<Category>
 }
 
 class DummyCategoryDataSourceImpl() : DummyCategoryDataSource {
-    override fun getMenuCategory(): List<Category> {
+    override fun getCategories(): List<Category> {
         return listOf(
             Category(
-                R.drawable.ic_rice,
-                "Rice"
+                "https://raw.githubusercontent.com/hermasyp/CH3-asset-code-challenge/master/categories/ic_all_category.png",
+                "All"
             ),
             Category(
-                R.drawable.burger,
+                "https://images.deliveryhero.io/image/fd-kh/Products/1944603.jpg?width=%s",
                 "Burger"
             ),
             Category(
-                R.drawable.ic_snack,
+                "https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2023/07/13024827/ini-cara-membuat-mie-goreng-yang-lebih-sehat-dengan-bahan-sederhana-halodoc.jpg.webp",
+                "Mie"
+            ),
+            Category(
+                "https://d17qo5cceyilur.cloudfront.net/IEKuwltITNeTnnqQt8ka_IMG_2170.jpg",
                 "Snack"
             ),
             Category(
-                R.drawable.drink,
-                "Drink"
-            ),
-            Category(
-                R.drawable.ic_meat,
-                "Meat"
-            ),
-            Category(
-                R.drawable.ic_fruit,
-                "Fruit"
-            ),
-            Category(
-                R.drawable.ic_vegetable,
-                "Vegetable"
+                "https://imgcdn.solopos.com/@space/2022/09/es-teh-res.jpg",
+                "Minuman"
             ),
         )
     }
-
 
 }

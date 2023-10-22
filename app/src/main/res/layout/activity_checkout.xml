@@ -11,7 +11,7 @@
         android:id="@+id/ll_action_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="8dp"
+        android:elevation="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textColor="@color/app_color_on_primary"
             android:layout_marginHorizontal="16dp"
             android:text="@string/text_order_confirmation" />
     </LinearLayout>
@@ -74,9 +75,8 @@
                 <RadioGroup
                     android:id="@+id/rg_delivery_method"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/bg_primary_outline"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
                     android:checkedButton="@+id/rb_delivery"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"

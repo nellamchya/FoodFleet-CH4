@@ -3,7 +3,33 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="hint_name">Your name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="text_log_in">Log in</string>
+    <string name="text_not_registered_yet_register_here">Not registered yet ? Register Here</string>
+    <string name="text_already_have_an_account_click_here">Already have an Account ? Login Here</string>
+    <string name="text_error_email_empty">Email should not be empty</string>
+    <string name="text_error_email_invalid">Enter a valid format email</string>
+    <string name="text_error_email_not_valid">Enter a valid format email</string>
+    <string name="text_error_password_empty">Password should not be empty</string>
+    <string name="text_error_password_less_than_8_char">Password cannot less than 8 character</string>
+    <string name="text_register">Register</string>
+    <string name="text_highlight_register_here">Register Here</string>
+    <string name="text_error_password_not_match">Password doesn\'t match</string>
+    <string name="text_error_name_empty">Name should not be empty</string>
+    <string name="text_error_name_cannot_empty">Name cannot be empty</string>
+    <string name= "text_menu_not_found">Menu Not Found</string>
+    <string name="text_highlight_login_here">Login Here</string>
+    <string name="text_highlight_register">Register Here</string>
+    <string name="text_change_profile">Change Profile</string>
+    <string name="text_change_password">Change Password</string>
+    <string name="text_logout">Logout</string>
+
+
     <string name="app_name">FoodFleet App</string>
+    <string name="app_settings">Pengaturan Aplikasi</string>
     <string name="category_name">Nama Kategori</string>
     <string name="menu_name">Nama Menu</string>
     <string name="menu_price">Harga Menu</string>
@@ -44,4 +70,13 @@
     <string name="text_your_cart">Your Cart</string>
     <string name="text_total_price">Total Price</string>
     <string name="text_empty">Teks yang tidak terlihat</string>
+
+    <string name="dark_mode">Dark Mode</string>
+    <string name="text_hint_name">Enter your name</string>
+    <string name="text_hint_email">Enter your email</string>
+    <string name="text_hint_password">Enter your password</string>
+    <string name="text_hint_confirm_password">Confirm your password</string>
+    <string name="text_not_registered_yet">Not Registered yet?</string>
+    <string name="text_category">Category</string>
+    <string name="text_checkout">Checkout</string>
 </resources>

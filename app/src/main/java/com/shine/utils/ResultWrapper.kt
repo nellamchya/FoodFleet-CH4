@@ -74,3 +74,4 @@ suspend fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
         emit(ResultWrapper.Loading())
     }
 }
+

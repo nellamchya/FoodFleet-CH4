@@ -1,92 +1,79 @@
 package com.shine.foodfleet.presentation.feature.home.adapter.subadapter
 
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.shine.foodfleet.core.ViewHolderBinder
 import com.shine.foodfleet.databinding.ItemMenuGridBinding
 import com.shine.foodfleet.databinding.ItemMenuListBinding
 import com.shine.foodfleet.model.Menu
-import com.shine.foodfleet.presentation.feature.home.adapter.AdapterLayoutMode
-import com.shine.foodfleet.presentation.feature.home.adapter.GridMenuViewHolder
-import com.shine.foodfleet.presentation.feature.home.adapter.ListMenuViewHolder
-import com.shine.utils.toCurrencyFormat
+import com.shine.foodfleet.presentation.feature.home.adapter.viewholder.GridMenuItemViewHolder
+import com.shine.foodfleet.presentation.feature.home.adapter.viewholder.LinearMenuItemViewHolder
+import java.lang.IllegalArgumentException
 
 class MenuListAdapter(
-    private val itemClick: (Menu) -> Unit,
-    private val adapterLayoutMode: AdapterLayoutMode
+    var layoutMode: Int,
+    private val onItemClick: (Menu) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val dataDiffer = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Menu>() {
-        override fun areItemsTheSame(oldItem: Menu, newItem: Menu): Boolean {
-            return oldItem.name == newItem.name &&
-                    oldItem.imageResourceId == newItem.imageResourceId &&
-                    oldItem.price == newItem.price &&
-                    oldItem.rating == newItem.rating &&
-                    oldItem.description == newItem.description &&
-                    oldItem.location == newItem.location
+    companion object {
+        const val LINEAR_LAYOUT = 1
+        const val GRID_LAYOUT = 2
+    }
+
+    private val dataDiffer = AsyncListDiffer(this,object : DiffUtil.ItemCallback<Menu>(){
+        override fun areContentsTheSame(oldItem: Menu, newItem:Menu): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Menu, newItem: Menu): Boolean {
-            return oldItem == newItem
+        override fun areItemsTheSame(oldItem: Menu, newItem: Menu): Boolean {
+            return oldItem.hashCode() == newItem.hashCode()
         }
     })
 
-    fun submitData(data: List<Menu>) {
+    fun submitData(data : List<Menu>){
         dataDiffer.submitList(data)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (adapterLayoutMode) {
-            AdapterLayoutMode.GRID -> {
-                GridMenuViewHolder(
-                    binding = ItemMenuGridBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+        return when(viewType){
+            LINEAR_LAYOUT -> {
+                LinearMenuItemViewHolder(
+                    binding = ItemMenuListBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
                     ),
-                    onClickListener = itemClick
+                    onItemClick = onItemClick
                 )
             }
-            AdapterLayoutMode.LINEAR -> {
-                ListMenuViewHolder(
-                    binding = ItemMenuListBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
+            GRID_LAYOUT -> {
+                GridMenuItemViewHolder(
+                    binding = ItemMenuGridBinding.inflate(
+                        LayoutInflater.from(parent.context), parent, false
                     ),
-                    onClickListener = itemClick
+                    onItemClick = onItemClick
                 )
+            }
+            else -> {
+                throw IllegalArgumentException("Invalid View Type")
             }
         }
+    }
+
+    override fun getItemCount(): Int {
+        return dataDiffer.currentList.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = dataDiffer.currentList[position]
-        when (holder) {
-            is GridMenuViewHolder -> {
-                holder.bind(item)
-            }
-            is ListMenuViewHolder -> {
-                holder.bind(item)
-            }
-        }
+        (holder as ViewHolderBinder<Menu>).bind(dataDiffer.currentList[position])
     }
-
-    override fun getItemCount(): Int = dataDiffer.currentList.size
 
     override fun getItemViewType(position: Int): Int {
-        return adapterLayoutMode.ordinal
-
+        return layoutMode
     }
 
-
-    fun refreshList() {
+    fun refreshList(){
         notifyItemRangeChanged(0,dataDiffer.currentList.size)
     }
 
