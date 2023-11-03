@@ -3,15 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#4F544F</color>
-    <color name="yellow">#FFD600</color>
 
     <color name="app_color_primary">#952323</color>
     <color name="app_color_on_primary">#A73121</color>
     <color name="app_color_primary_container">#DAD4B5</color>
-    <color name="app_color_on_primary_container">#F2E8C6</color>
 
-    <color name="purple_200">#6200EE</color>
-    <color name="purple_700">#3700B3</color>
     <color name="teal_200">#03DAC5</color>
     <color name="teal_700">#018786</color>
 

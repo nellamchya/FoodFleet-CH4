@@ -1,8 +1,4 @@
 <resources>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string name="hint_name">Your name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -12,17 +8,14 @@
     <string name="text_already_have_an_account_click_here">Already have an Account ? Login Here</string>
     <string name="text_error_email_empty">Email should not be empty</string>
     <string name="text_error_email_invalid">Enter a valid format email</string>
-    <string name="text_error_email_not_valid">Enter a valid format email</string>
     <string name="text_error_password_empty">Password should not be empty</string>
     <string name="text_error_password_less_than_8_char">Password cannot less than 8 character</string>
     <string name="text_register">Register</string>
     <string name="text_highlight_register_here">Register Here</string>
     <string name="text_error_password_not_match">Password doesn\'t match</string>
-    <string name="text_error_name_empty">Name should not be empty</string>
     <string name="text_error_name_cannot_empty">Name cannot be empty</string>
     <string name= "text_menu_not_found">Menu Not Found</string>
     <string name="text_highlight_login_here">Login Here</string>
-    <string name="text_highlight_register">Register Here</string>
     <string name="text_change_profile">Change Profile</string>
     <string name="text_change_password">Change Password</string>
     <string name="text_logout">Logout</string>
@@ -32,24 +25,10 @@
     <string name="category_name">Nama Kategori</string>
     <string name="menu_name">Nama Menu</string>
     <string name="menu_price">Harga Menu</string>
-    <string name="menu_rate">4.9</string>
-    <string name="menu_list">Menu Makanan</string>
-    <string name="hello_tag">Hai Nellam, </string>
     <string name="tagline">Mau makan apa hari ini?</string>
     <string name="icon_profile">Icon Profile</string>
-    <string name="icon_shopping_cart">Icon Shopping Cart</string>
-    <string name="nama_menu">Nama Menu</string>
-    <string name="deskripsi_menu">Varian dari pangsit tradisional China yang disajikan dengan cara dikukus dan digoreng.</string>
     <string name="location_complete">Jl. BSD Green Office Park Jl. BSD Grand Boulevard, Sampora, BSD, Kabupaten Tangerang, Banten 15345</string>
-    <string name="chartadd">Tambah ke Keranjang - Rp 0.000</string>
-    <string name="price">Rp 10.000</string>
-    <string name="cart">Cart</string>
     <string name="profile">Profile</string>
-    <string name="home">Home</string>
-    <string name="keranjang">Keranjang</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
     <string name="total_quantity">x%s</string>
     <string name="a_description_of_the_tagline_text">A description of the tagline text</string>
     <string name="empty_text">Teks yang tidak terlihat</string>
@@ -67,13 +46,7 @@
     <string name="text_order_confirmation">Order Confirmation</string>
     <string name="text_your_cart">Your Cart</string>
     <string name="text_total_price">Total Price</string>
-    <string name="text_empty">Teks yang tidak terlihat</string>
 
-    <string name="text_hint_name">Enter your name</string>
-    <string name="text_hint_email">Enter your email</string>
-    <string name="text_hint_password">Enter your password</string>
-    <string name="text_hint_confirm_password">Confirm your password</string>
-    <string name="text_not_registered_yet">Not Registered yet?</string>
     <string name="text_category">Category</string>
     <string name="text_checkout">Checkout</string>
     <string name="bt_switch">switch</string>
@@ -108,4 +81,9 @@
     <string name="text_add_cart_success">Add to cart success !</string>
     <string name="text_checkout_error" translatable="false">Checkout Error</string>
     <string name="text_cart_list_empty">Cart Empty</string>
+    <string name="text_home">Home</string>
+    <string name="text_cart">Cart</string>
+    <string name="text_hai">Hai</string>
+    <string name="text_nellam">Nellam</string>
+    <string name="text_all" translatable="false">All</string>
 </resources>

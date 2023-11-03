@@ -60,11 +60,6 @@ class HomeFragment : Fragment() {
         observeData()
     }
 
-    private fun getData() {
-        viewModel.getCategories()
-        viewModel.getMenus()
-    }
-
     private fun observeData() {
         viewModel.categories.observe(viewLifecycleOwner) {
             it.proceedWhen(
@@ -96,7 +91,8 @@ class HomeFragment : Fragment() {
                     binding.layoutStateCategory.root.isVisible = true
                     binding.layoutStateCategory.pbLoading.isVisible = false
                     binding.layoutStateCategory.tvError.isVisible = true
-                    binding.layoutStateCategory.tvError.text = assetWrapper.getString(R.string.text_category_not_found)
+                    binding.layoutStateCategory.tvError.text =
+                        assetWrapper.getString(R.string.text_category_not_found)
                 }
             )
         }
@@ -128,6 +124,22 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getProfileData()
+    }
+    private fun getProfileData() {
+        viewModel.getProfileData()
+        observeDataProfile()
+    }
+
+    private fun observeDataProfile() {
+        viewModel.getProfileResult.observe(viewLifecycleOwner) {
+            binding.textUsername.text = viewModel.getCurrentUser()?.fullName
+            viewModel.getProfileData()
+        }
+    }
+
     private fun setUpMenuRv() {
         viewModel.userLayoutMode.observe(viewLifecycleOwner) { layoutMode ->
             binding.rvListMenus.apply {
@@ -143,6 +155,12 @@ class HomeFragment : Fragment() {
         binding.ibSwitchMode.setOnClickListener {
             changeAdapterLayoutMode()
         }
+    }
+
+    private fun getData() {
+        binding.textUsername.text = viewModel.getCurrentUser()?.fullName
+        viewModel.getCategories()
+        viewModel.getMenus()
     }
 
     private fun changeAdapterLayoutMode() {
