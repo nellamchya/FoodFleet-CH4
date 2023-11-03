@@ -4,8 +4,8 @@ import android.net.Uri
 import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSource
 import com.shine.foodfleet.model.User
 import com.shine.foodfleet.model.toUser
-import com.shine.utils.ResultWrapper
-import com.shine.utils.proceedFlow
+import com.shine.foodfleet.utils.ResultWrapper
+import com.shine.foodfleet.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
@@ -22,7 +22,6 @@ interface UserRepository {
     ): Flow<ResultWrapper<Boolean>>
     suspend fun doRegister(fullName: String, email: String, password: String): Flow<ResultWrapper<Boolean>>
     suspend fun doLogin(email: String, password: String): Flow<ResultWrapper<Boolean>>
-
 }
 
 class UserRepositoryImpl(private val dataSource: FirebaseAuthDataSource) : UserRepository {
@@ -69,5 +68,4 @@ class UserRepositoryImpl(private val dataSource: FirebaseAuthDataSource) : UserR
     override suspend fun doLogin(email: String, password: String): Flow<ResultWrapper<Boolean>> {
         return proceedFlow { dataSource.doLogin(email, password) }
     }
-
 }

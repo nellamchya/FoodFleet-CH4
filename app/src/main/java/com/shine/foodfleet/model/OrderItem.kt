@@ -10,5 +10,8 @@ data class OrderItem(
 )
 
 fun OrderItem.toOrderItemRequest() = OrderItemRequest(
-    notes, price, name, qty
+    notes,
+    price,
+    name,
+    qty
 )

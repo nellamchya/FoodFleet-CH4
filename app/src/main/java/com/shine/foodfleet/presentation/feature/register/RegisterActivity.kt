@@ -4,22 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.google.android.material.textfield.TextInputLayout
-import com.google.firebase.auth.FirebaseAuth
 import com.shine.foodfleet.R
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSource
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.foodfleet.data.repository.UserRepositoryImpl
 import com.shine.foodfleet.databinding.ActivityRegisterBinding
 import com.shine.foodfleet.presentation.feature.login.LoginActivity
 import com.shine.foodfleet.presentation.feature.main.MainActivity
-import com.shine.utils.GenericViewModelFactory
-import com.shine.utils.highLightWord
-import com.shine.utils.proceedWhen
+import com.shine.foodfleet.utils.AssetWrapper
+import com.shine.foodfleet.utils.highLightWord
+import com.shine.foodfleet.utils.proceedWhen
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -27,17 +23,13 @@ class RegisterActivity : AppCompatActivity() {
         ActivityRegisterBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: RegisterViewModel by viewModels {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val datasource: FirebaseAuthDataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo: UserRepository = UserRepositoryImpl(datasource)
-        GenericViewModelFactory.create(RegisterViewModel(repo))
-    }
+    private val viewModel: RegisterViewModel by viewModel()
+
+    private val assetWrapper: AssetWrapper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         setupFrom()
         setClickListeners()
         observeResult()
@@ -51,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setClickListeners() {
-        binding.tvNavToLogin.highLightWord(getString(R.string.text_highlight_login_here)) {
+        binding.tvNavToLogin.highLightWord(assetWrapper.getString(R.string.text_highlight_login_here)) {
             navigateToLogin()
         }
 
@@ -86,7 +78,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding.btnRegister.isEnabled = true
                     Toast.makeText(
                         this,
-                        "Register Failed : ${it.exception?.message.orEmpty()}",
+                        assetWrapper.getString(R.string.text_register_failed) + it.exception?.message.orEmpty(),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -116,19 +108,19 @@ class RegisterActivity : AppCompatActivity() {
         val password = binding.layoutForm.etPassword.text.toString().trim()
         val confirmPassword = binding.layoutForm.etConfirmPassword.text.toString().trim()
 
-        return checkNameValidation(name) && checkEmailValidation(email)
-                && checkPasswordValidation(password, binding.layoutForm.tilPassword)
-                && checkPasswordValidation(
-            confirmPassword,
-            binding.layoutForm.tilConfirmPassword
-        )
-                && checkPasswordAndConfirmPassword(password, confirmPassword)
+        return checkNameValidation(name) && checkEmailValidation(email) &&
+            checkPasswordValidation(password, binding.layoutForm.tilPassword) &&
+            checkPasswordValidation(
+                confirmPassword,
+                binding.layoutForm.tilConfirmPassword
+            ) &&
+            checkPasswordAndConfirmPassword(password, confirmPassword)
     }
 
     private fun checkNameValidation(name: String): Boolean {
         return if (name.isEmpty()) {
             binding.layoutForm.tilName.isErrorEnabled = true
-            binding.layoutForm.tilName.error = getString(R.string.text_error_name_cannot_empty)
+            binding.layoutForm.tilName.error = assetWrapper.getString(R.string.text_error_name_cannot_empty)
             false
         } else {
             binding.layoutForm.tilName.isErrorEnabled = false
@@ -139,11 +131,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun checkEmailValidation(email: String): Boolean {
         return if (email.isEmpty()) {
             binding.layoutForm.tilEmail.isErrorEnabled = true
-            binding.layoutForm.tilEmail.error = getString(R.string.text_error_email_empty)
+            binding.layoutForm.tilEmail.error = assetWrapper.getString(R.string.text_error_email_empty)
             false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             binding.layoutForm.tilEmail.isErrorEnabled = true
-            binding.layoutForm.tilEmail.error = getString(R.string.text_error_email_invalid)
+            binding.layoutForm.tilEmail.error = assetWrapper.getString(R.string.text_error_email_invalid)
             false
         } else {
             binding.layoutForm.tilEmail.isErrorEnabled = false
@@ -157,11 +149,11 @@ class RegisterActivity : AppCompatActivity() {
     ): Boolean {
         return if (password.isEmpty()) {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error = getString(R.string.text_error_password_empty)
+            textInputLayout.error = assetWrapper.getString(R.string.text_error_password_empty)
             false
         } else if (password.length < 8) {
             textInputLayout.isErrorEnabled = true
-            textInputLayout.error = getString(R.string.text_error_password_less_than_8_char)
+            textInputLayout.error = assetWrapper.getString(R.string.text_error_password_less_than_8_char)
             false
         } else {
             textInputLayout.isErrorEnabled = false
@@ -177,9 +169,9 @@ class RegisterActivity : AppCompatActivity() {
             binding.layoutForm.tilPassword.isErrorEnabled = true
             binding.layoutForm.tilConfirmPassword.isErrorEnabled = true
             binding.layoutForm.tilPassword.error =
-                getString(R.string.text_error_password_not_match)
+                assetWrapper.getString(R.string.text_error_password_not_match)
             binding.layoutForm.tilConfirmPassword.error =
-                getString(R.string.text_error_password_not_match)
+                assetWrapper.getString(R.string.text_error_password_not_match)
             false
         } else {
             binding.layoutForm.tilPassword.isErrorEnabled = false
@@ -187,6 +179,4 @@ class RegisterActivity : AppCompatActivity() {
             true
         }
     }
-
-
 }

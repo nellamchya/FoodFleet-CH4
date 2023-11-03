@@ -20,11 +20,12 @@ interface FirebaseAuthDataSource {
         fullName: String? = null,
         photoUri: Uri? = null
     ): Boolean
+
     @Throws(exceptionClasses = [Exception::class])
     suspend fun doRegister(fullName: String, email: String, password: String): Boolean
+
     @Throws(exceptionClasses = [Exception::class])
     suspend fun doLogin(email: String, password: String): Boolean
-
 }
 
 class FirebaseAuthDataSourceImpl(private val firebaseAuth: FirebaseAuth) : FirebaseAuthDataSource {
@@ -58,7 +59,7 @@ class FirebaseAuthDataSourceImpl(private val firebaseAuth: FirebaseAuth) : Fireb
 
     override suspend fun updateProfile(fullName: String?, photoUri: Uri?): Boolean {
         getCurrentUser()?.updateProfile(
-            userProfileChangeRequest{
+            userProfileChangeRequest {
                 fullName?.let { displayName = fullName }
                 photoUri?.let { this.photoUri = it }
             }
@@ -82,5 +83,4 @@ class FirebaseAuthDataSourceImpl(private val firebaseAuth: FirebaseAuth) : Fireb
         val loginResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
         return loginResult.user != null
     }
-
 }

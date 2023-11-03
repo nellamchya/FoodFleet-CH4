@@ -6,5 +6,5 @@ import com.google.gson.annotations.SerializedName
 @Keep
 data class OrderRequest(
     @SerializedName("orders")
-    val orders: List<OrderItemRequest>?,
+    val orders: List<OrderItemRequest>?
 )

@@ -4,42 +4,34 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import coil.load
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.shine.foodfleet.data.local.database.AppDatabase
-import com.shine.foodfleet.data.local.database.datasource.CartDataSource
-import com.shine.foodfleet.data.local.database.datasource.CartDatabaseDataSource
-import com.shine.foodfleet.data.network.api.datasource.FoodFleetApiDataSource
-import com.shine.foodfleet.data.network.api.service.FoodFleetApiService
-import com.shine.foodfleet.data.repository.CartRepository
-import com.shine.foodfleet.data.repository.CartRepositoryImpl
+import com.shine.foodfleet.R
 import com.shine.foodfleet.databinding.ActivityDetailMenuBinding
 import com.shine.foodfleet.model.Menu
-import com.shine.utils.GenericViewModelFactory
-import com.shine.utils.proceedWhen
-import com.shine.utils.toCurrencyFormat
+import com.shine.foodfleet.utils.AssetWrapper
+import com.shine.foodfleet.utils.proceedWhen
+import com.shine.foodfleet.utils.toCurrencyFormat
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
+@Suppress("DEPRECATION")
 class DetailMenuActivity : AppCompatActivity() {
 
     private val binding: ActivityDetailMenuBinding by lazy {
         ActivityDetailMenuBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: DetailMenuViewModel by viewModels {
-        val database = AppDatabase.getInstance(this)
-        val cartDao = database.cartDao()
-        val cartDataSource: CartDataSource = CartDatabaseDataSource(cartDao)
-        val chuckerInterceptor = ChuckerInterceptor(this.applicationContext)
-        val service = FoodFleetApiService.invoke(chuckerInterceptor)
-        val apiDataSource = FoodFleetApiDataSource(service)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource, apiDataSource)
-        GenericViewModelFactory.create(DetailMenuViewModel(intent?.extras, repo))
+    private val viewModel: DetailMenuViewModel by viewModel {
+        parametersOf(intent.extras ?: bundleOf())
     }
+
+    private val assetWrapper: AssetWrapper by inject()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +46,7 @@ class DetailMenuActivity : AppCompatActivity() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
-        binding.btOpenMaps.setOnClickListener(){
+        binding.btOpenMaps.setOnClickListener {
             showLocation()
         }
         binding.ivMinus.setOnClickListener {
@@ -76,14 +68,16 @@ class DetailMenuActivity : AppCompatActivity() {
         viewModel.menuCountLiveData.observe(this) {
             binding.tvMenuCount.text = it.toString()
         }
-        viewModel.addToCartResult.observe(this) {
+        viewModel.addToCartResult.observe(this) { it ->
             it.proceedWhen(
                 doOnSuccess = {
-                    Toast.makeText(this, "Add to cart success !", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, assetWrapper.getString(R.string.text_add_cart_success), Toast.LENGTH_SHORT).show()
                     finish()
-                }, doOnError = {
+                },
+                doOnError = {
                     Toast.makeText(this, it.exception?.message.orEmpty(), Toast.LENGTH_SHORT).show()
-                })
+                }
+            )
         }
     }
 

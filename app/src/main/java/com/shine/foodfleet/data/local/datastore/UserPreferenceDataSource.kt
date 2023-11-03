@@ -2,9 +2,8 @@ package com.shine.foodfleet.data.local.datastore
 
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
-import com.shine.utils.PreferenceDataStoreHelper
+import com.shine.foodfleet.utils.PreferenceDataStoreHelper
 import kotlinx.coroutines.flow.Flow
-
 
 interface UserPreferenceDataSource {
     suspend fun getUserDarkModePref(): Boolean

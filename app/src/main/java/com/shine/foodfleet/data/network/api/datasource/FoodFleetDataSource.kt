@@ -12,7 +12,6 @@ interface FoodFleetDataSource {
     suspend fun getCategories(): CategoryItemResponse
 
     suspend fun createOrder(orderRequest: OrderRequest): OrderResponse
-
 }
 
 class FoodFleetApiDataSource(private val service: FoodFleetApiService) : FoodFleetDataSource {

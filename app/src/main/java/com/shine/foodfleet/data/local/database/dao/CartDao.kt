@@ -9,7 +9,6 @@ import androidx.room.Update
 import com.shine.foodfleet.data.local.database.entity.CartEntity
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface CartDao {
 

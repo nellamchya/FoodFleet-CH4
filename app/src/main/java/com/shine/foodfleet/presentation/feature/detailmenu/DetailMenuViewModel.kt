@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shine.foodfleet.data.repository.CartRepository
 import com.shine.foodfleet.model.Menu
-import com.shine.utils.ResultWrapper
+import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.launch
 
-
+@Suppress("DEPRECATION")
 class DetailMenuViewModel(
     private val extras: Bundle?,
-    private val cartRepository: CartRepository,
+    private val cartRepository: CartRepository
 ) : ViewModel() {
 
     val menu = extras?.getParcelable<Menu>(DetailMenuActivity.EXTRA_MENU)
@@ -49,12 +49,10 @@ class DetailMenuViewModel(
                     menuCountLiveData.value ?: 0
                 }
             menu?.let {
-                cartRepository.createCart(it, menuQuantity).collect() { result ->
+                cartRepository.createCart(it, menuQuantity).collect { result ->
                     _addToCartResult.postValue(result)
                 }
             }
         }
-
     }
-
 }

@@ -5,10 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.utils.ResultWrapper
+import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 
 class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     private val _registerResult = MutableLiveData<ResultWrapper<Boolean>>()

@@ -9,16 +9,15 @@ import com.shine.foodfleet.data.network.api.model.order.OrderItemRequest
 import com.shine.foodfleet.data.network.api.model.order.OrderRequest
 import com.shine.foodfleet.model.Cart
 import com.shine.foodfleet.model.Menu
-import com.shine.utils.ResultWrapper
-import com.shine.utils.proceed
-import com.shine.utils.proceedFlow
+import com.shine.foodfleet.utils.ResultWrapper
+import com.shine.foodfleet.utils.proceed
+import com.shine.foodfleet.utils.proceedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import java.lang.IllegalStateException
-
 
 interface CartRepository {
     fun getCartData(): Flow<ResultWrapper<Pair<List<Cart>, Int>>>
@@ -48,10 +47,11 @@ class CartRepositoryImpl(
                     Pair(result, totalPrice)
                 }
             }.map {
-                if (it.payload?.first?.isEmpty() == true)
+                if (it.payload?.first?.isEmpty() == true) {
                     ResultWrapper.Empty(it.payload)
-                else
+                } else {
                     it
+                }
             }.onStart {
                 emit(ResultWrapper.Loading())
                 delay(2000)
@@ -59,14 +59,14 @@ class CartRepositoryImpl(
     }
 
     override suspend fun createCart(menu: Menu, totalQty: Int): Flow<ResultWrapper<Boolean>> {
-        return menu.id?.let{ menuId ->
+        return menu.id?.let { menuId ->
             proceedFlow {
                 val affectedRow = cartDataSource.insertCart(
                     CartEntity(
                         menuId = menuId,
                         itemQuantity = totalQty,
                         menuImgUrl = menu.menuImageUrl,
-                        menuPrice =  menu.menuPrice,
+                        menuPrice = menu.menuPrice,
                         menuName = menu.menuName
                     )
                 )
@@ -116,6 +116,4 @@ class CartRepositoryImpl(
             foodFleetDataSource.createOrder(orderRequest).status == true
         }
     }
-
 }
-

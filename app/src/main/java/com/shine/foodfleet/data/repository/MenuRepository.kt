@@ -5,10 +5,9 @@ import com.shine.foodfleet.data.network.api.model.category.toCategoryList
 import com.shine.foodfleet.data.network.api.model.menu.toMenuList
 import com.shine.foodfleet.model.Category
 import com.shine.foodfleet.model.Menu
-import com.shine.utils.ResultWrapper
-import com.shine.utils.proceedFlow
+import com.shine.foodfleet.utils.ResultWrapper
+import com.shine.foodfleet.utils.proceedFlow
 import kotlinx.coroutines.flow.Flow
-
 
 interface MenuRepository {
     suspend fun getCategories(): Flow<ResultWrapper<List<Category>>>
@@ -16,7 +15,7 @@ interface MenuRepository {
 }
 
 class MenuRepositoryImpl(
-    private val apiDataSource: FoodFleetDataSource,
+    private val apiDataSource: FoodFleetDataSource
 ) : MenuRepository {
     override suspend fun getCategories(): Flow<ResultWrapper<List<Category>>> {
         return proceedFlow {
@@ -30,4 +29,3 @@ class MenuRepositoryImpl(
         }
     }
 }
-

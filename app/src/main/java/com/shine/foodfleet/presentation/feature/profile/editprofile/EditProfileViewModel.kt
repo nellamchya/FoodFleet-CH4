@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.utils.ResultWrapper
+import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.launch
 
-class EditProfileViewModel(private val userRepo : UserRepository): ViewModel() {
+class EditProfileViewModel(private val userRepo: UserRepository) : ViewModel() {
 
     private val _changeProfileResult = MutableLiveData<ResultWrapper<Boolean>>()
     val changeProfileResult: LiveData<ResultWrapper<Boolean>>
@@ -16,16 +16,15 @@ class EditProfileViewModel(private val userRepo : UserRepository): ViewModel() {
 
     fun getCurrentUser() = userRepo.getCurrentUser()
 
-    fun changeProfile(fullName: String){
+    fun changeProfile(fullName: String) {
         viewModelScope.launch {
-            userRepo.updateProfile(fullName).collect{
+            userRepo.updateProfile(fullName).collect {
                 _changeProfileResult.postValue(it)
             }
         }
     }
 
-    fun createChangePasswordRequest(){
+    fun createChangePasswordRequest() {
         userRepo.sendChangePasswordRequestByEmail()
     }
-
 }

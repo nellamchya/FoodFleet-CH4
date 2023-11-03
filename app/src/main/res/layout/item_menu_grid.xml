@@ -24,14 +24,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            android:src="@drawable/ic_sate_ayam"
+            android:contentDescription="@string/text_menu_image" />
 
         <TextView
             android:id="@+id/tv_menu_name"
-            android:layout_width="105dp"
-            android:layout_height="25dp"
+            android:layout_width="106dp"
+            android:layout_height="26dp"
             android:layout_marginStart="14dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/menu_name"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -39,7 +41,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_menu_image"
+            tools:ignore="TextSizeCheck"
             tools:text="Menu Name" />
+
 
 
         <TextView

@@ -3,7 +3,6 @@ package com.shine.foodfleet.data.local.database.mapper
 import com.shine.foodfleet.data.local.database.entity.CartEntity
 import com.shine.foodfleet.model.Cart
 
-
 fun CartEntity?.toCart() = Cart(
     id = this?.id ?: 0,
     menuId = this?.menuId ?: 0,

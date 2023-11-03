@@ -1,4 +1,4 @@
-package com.shine.utils
+package com.shine.foodfleet.utils
 
 import android.app.Activity
 import android.content.Context

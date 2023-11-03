@@ -6,32 +6,31 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.shine.foodfleet.data.repository.CartRepository
-import com.shine.foodfleet.model.Cart
-import com.shine.utils.ResultWrapper
+import com.shine.foodfleet.data.repository.UserRepository
+import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CheckoutViewModel(
-    private val cartRepo : CartRepository
-) : ViewModel(){
+    private val cartRepo: CartRepository,
+    private val userRepo: UserRepository
+) : ViewModel() {
     val cartListOrder = cartRepo.getCartData().asLiveData(Dispatchers.IO)
 
     private val _checkoutResult = MutableLiveData<ResultWrapper<Boolean>>()
     val checkoutResult: LiveData<ResultWrapper<Boolean>>
         get() = _checkoutResult
 
-    fun order(){
+    fun order() {
         viewModelScope.launch(Dispatchers.IO) {
             val carts = cartListOrder.value?.payload?.first ?: return@launch
-            cartRepo.order(carts).collect{
+            cartRepo.order(carts).collect {
                 _checkoutResult.postValue(it)
             }
         }
     }
-    fun deleteAllCart(){
-        viewModelScope.launch {
+    fun deleteAllCart() {
+        viewModelScope.launch(Dispatchers.IO) {
             cartRepo.deleteAllCart()
         }
     }

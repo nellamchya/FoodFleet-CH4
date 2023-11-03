@@ -1,6 +1,5 @@
 package com.shine.foodfleet.data.dummy
 
-import com.shine.foodfleet.R
 import com.shine.foodfleet.model.Category
 
 interface DummyCategoryDataSource {
@@ -29,8 +28,7 @@ class DummyCategoryDataSourceImpl() : DummyCategoryDataSource {
             Category(
                 "https://imgcdn.solopos.com/@space/2022/09/es-teh-res.jpg",
                 "Minuman"
-            ),
+            )
         )
     }
-
 }

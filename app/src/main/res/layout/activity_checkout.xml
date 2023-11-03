@@ -7,13 +7,14 @@
     android:background="@color/background"
     tools:context=".presentation.feature.checkout.CheckoutActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:elevation="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -22,20 +23,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_back" />
+            android:contentDescription="@string/tx_back_to_home"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_title_toolbar"
             style="@style/TextAppearance.Material3.TitleMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="@color/app_color_on_primary"
             android:layout_marginHorizontal="16dp"
-            android:text="@string/text_order_confirmation" />
-    </LinearLayout>
+            android:text="@string/text_order_confirmation"
+            android:textAlignment="center"
+            android:textColor="@color/app_color_on_primary"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/vw_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/app_color_on_primary"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_toolbar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -64,11 +79,11 @@
                     android:id="@+id/tv_method_shipping"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:text="@string/text_shipping_method"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="2dp"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,11 +102,15 @@
                         android:id="@+id/rb_pick_up"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_toogle_background"
                         android:button="@null"
                         android:gravity="center"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
                         android:text="@string/text_pick_up"
                         android:textColor="@drawable/selector_toogle_text_color" />
 
@@ -99,13 +118,16 @@
                         android:id="@+id/rb_delivery"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_toogle_background"
                         android:button="@null"
                         android:gravity="center"
                         android:text="@string/text_delivery"
-                        android:textColor="@drawable/selector_toogle_text_color" />
+                        android:textColor="@drawable/selector_toogle_text_color"
+                        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
                 </RadioGroup>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -127,7 +149,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="32dp"
-                app:layout_constraintBottom_toTopOf="@id/cl_payment_method"/>
+                app:layout_constraintBottom_toTopOf="@id/cl_payment_method"
+                app:layout_constraintTop_toBottomOf="@id/cl_method_shipping" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_payment_method"
@@ -146,9 +169,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_payment_method"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -168,7 +191,9 @@
                         android:id="@+id/rb_cash"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_toogle_background"
                         android:button="@null"
@@ -181,14 +206,17 @@
                         android:id="@+id/rb_wallet"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_margin="2dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_toogle_background"
                         android:button="@null"
                         android:gravity="center"
                         android:text="@string/text_e_wallet"
                         android:textColor="@drawable/selector_toogle_text_color"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </RadioGroup>
 
@@ -212,16 +240,16 @@
                     android:layout_height="wrap_content"
                     android:text="@string/text_payment_summary"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="110dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_coloumn_order"
+                    android:background="@drawable/bg_primary_container_transparent"
                     android:padding="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -267,10 +295,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/coloum_cart"
+            android:background="@drawable/bt_order"
             android:gravity="center"
             android:text="@string/text_order"
-            android:textColor="@color/app_color_primary"
+            android:textColor="@color/white"
             android:textSize="18sp"
             tools:ignore="MissingConstraints" />
 

@@ -1,28 +1,19 @@
 package com.shine.foodfleet.presentation.feature.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.shine.foodfleet.R
-import com.shine.foodfleet.data.local.datastore.UserPreferenceDataSourceImpl
-import com.shine.foodfleet.data.local.datastore.appDataStore
 import com.shine.foodfleet.databinding.ActivityMainBinding
-import com.shine.utils.GenericViewModelFactory
-import com.shine.utils.PreferenceDataStoreHelperImpl
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private val viewModel: MainViewModel by viewModels {
-        val dataStore = this.appDataStore
-        val dataStoreHelper = PreferenceDataStoreHelperImpl(dataStore)
-        val userPreferenceDataSource = UserPreferenceDataSourceImpl(dataStoreHelper)
-        GenericViewModelFactory.create(MainViewModel(userPreferenceDataSource))
-    }
+    private val viewModel: MainViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

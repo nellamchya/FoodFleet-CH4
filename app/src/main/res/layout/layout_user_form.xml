@@ -17,9 +17,11 @@
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:hint="@string/hint_name"
             android:inputType="text"
-            android:textColorHint="@color/app_color_primary" />
+            android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -34,9 +36,13 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:hint="@string/hint_email"
             android:inputType="textEmailAddress"
-            android:textColorHint="@color/app_color_primary"/>
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -52,9 +58,13 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:textColorHint="@color/app_color_primary"/>
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -70,9 +80,13 @@
             android:id="@+id/et_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
             android:hint="@string/hint_confirm_password"
             android:inputType="textPassword"
-            android:textColorHint="@color/app_color_primary"/>
+            android:minWidth="200dp"
+            android:minHeight="50dp"
+            android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

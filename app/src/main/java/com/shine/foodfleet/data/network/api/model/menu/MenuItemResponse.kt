@@ -1,10 +1,8 @@
 package com.shine.foodfleet.data.network.api.model.menu
 
-
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 import com.shine.foodfleet.model.Menu
-
 
 @Keep
 data class MenuItemResponse(
@@ -23,7 +21,7 @@ data class MenuItemResponse(
     @SerializedName("detail")
     val desc: String?,
     @SerializedName("alamat_resto")
-    val address: String?,
+    val address: String?
 )
 
 fun MenuItemResponse.toMenu() = Menu(
@@ -33,7 +31,7 @@ fun MenuItemResponse.toMenu() = Menu(
     menuPrice = this.price ?: 0,
     menuFormattedPrice = this.formattedPrice.orEmpty(),
     menuImageUrl = this.imageUrl.orEmpty(),
-    menuShopLocation = this.address.orEmpty(),
+    menuShopLocation = this.address.orEmpty()
 )
 
 fun Collection<MenuItemResponse>.toMenuList() = this.map { it.toMenu() }

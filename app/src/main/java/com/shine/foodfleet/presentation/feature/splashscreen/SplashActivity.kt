@@ -1,35 +1,21 @@
 package com.shine.foodfleet.presentation.feature.splashscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.auth.FirebaseAuth
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSource
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.foodfleet.data.repository.UserRepositoryImpl
 import com.shine.foodfleet.databinding.ActivitySplashBinding
 import com.shine.foodfleet.presentation.feature.login.LoginActivity
 import com.shine.foodfleet.presentation.feature.main.MainActivity
-import com.shine.utils.GenericViewModelFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
 
-    private fun createViewModel(): SplashViewModel {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource: FirebaseAuthDataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repository: UserRepository = UserRepositoryImpl(dataSource)
-        return SplashViewModel(repository)
-    }
-
-    private val viewModel: SplashViewModel by viewModels {
-        GenericViewModelFactory.create(createViewModel())
-    }
+    private val viewModel: SplashViewModel by viewModel()
 
     private val binding: ActivitySplashBinding by lazy {
         ActivitySplashBinding.inflate(layoutInflater)

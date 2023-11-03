@@ -1,6 +1,5 @@
-package com.shine.utils
+package com.shine.foodfleet.utils
 
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -10,7 +9,7 @@ import kotlin.Exception
 sealed class ResultWrapper<T>(
     val payload: T? = null,
     val message: String? = null,
-    val exception: Exception? = null,
+    val exception: Exception? = null
 ) {
     class Success<T>(data: T) : ResultWrapper<T>(data)
     class Error<T>(exception: Exception?, data: T? = null) :
@@ -20,12 +19,11 @@ sealed class ResultWrapper<T>(
     class Loading<T>(data: T? = null) : ResultWrapper<T>(data)
 }
 
-
 fun <T> ResultWrapper<T>.proceedWhen(
     doOnSuccess: ((resource: ResultWrapper<T>) -> Unit)? = null,
     doOnError: ((resource: ResultWrapper<T>) -> Unit)? = null,
     doOnLoading: ((resource: ResultWrapper<T>) -> Unit)? = null,
-    doOnEmpty: ((resource: ResultWrapper<T>) -> Unit)? = null,
+    doOnEmpty: ((resource: ResultWrapper<T>) -> Unit)? = null
 ) {
     when (this) {
         is ResultWrapper.Success -> {
@@ -42,8 +40,6 @@ fun <T> ResultWrapper<T>.proceedWhen(
         }
     }
 }
-
-
 
 suspend fun <T> proceed(block: suspend () -> T): ResultWrapper<T> {
     return try {
@@ -74,4 +70,3 @@ suspend fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
         emit(ResultWrapper.Loading())
     }
 }
-

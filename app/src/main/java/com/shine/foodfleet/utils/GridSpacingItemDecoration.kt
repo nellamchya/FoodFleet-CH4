@@ -1,10 +1,9 @@
-package com.shine.utils
+package com.shine.foodfleet.utils
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-
 
 class GridSpacingItemDecoration(spanCount: Int, spacing: Int, includeEdge: Boolean) : ItemDecoration() {
     private val spanCount: Int

@@ -1,21 +1,16 @@
 package com.shine.foodfleet.presentation.feature.profile.editprofile
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import com.google.firebase.auth.FirebaseAuth
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSource
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.foodfleet.data.repository.UserRepositoryImpl
+import com.shine.foodfleet.R
 import com.shine.foodfleet.databinding.ActivityEditProfileBinding
-import com.shine.foodfleet.presentation.feature.main.MainActivity
-import com.shine.utils.GenericViewModelFactory
-import com.shine.utils.proceedWhen
+import com.shine.foodfleet.utils.AssetWrapper
+import com.shine.foodfleet.utils.proceedWhen
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -23,12 +18,9 @@ class EditProfileActivity : AppCompatActivity() {
         ActivityEditProfileBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: EditProfileViewModel by viewModels {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource: FirebaseAuthDataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo: UserRepository = UserRepositoryImpl(dataSource)
-        GenericViewModelFactory.create(EditProfileViewModel(repo))
-    }
+    private val viewModel: EditProfileViewModel by viewModel()
+
+    private val assetWrapper: AssetWrapper by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,19 +46,17 @@ class EditProfileActivity : AppCompatActivity() {
     private fun setClickListeners() {
         binding.btnChangeProfile.setOnClickListener {
             changeProfileData()
-            Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-            navigateToProfile()
+            finish()
+            Toast.makeText(
+                this,
+                assetWrapper.getString(R.string.text_profile_update_success),
+                Toast.LENGTH_SHORT
+            ).show()
         }
         binding.tvChangePassword.setOnClickListener {
             requestChangePassword()
         }
     }
-
-    private fun navigateToProfile() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
 
     private fun changeProfileData() {
         if (checkNameValidation()) {
@@ -78,6 +68,8 @@ class EditProfileActivity : AppCompatActivity() {
     private fun checkNameValidation(): Boolean {
         return if (binding.layoutUserForm.etName.text?.isEmpty() == true) {
             binding.layoutUserForm.tilName.isErrorEnabled = true
+            binding.layoutUserForm.tilName.error =
+                assetWrapper.getString(R.string.text_error_name_cannot_empty)
             false
         } else {
             binding.layoutUserForm.tilName.isErrorEnabled = false
@@ -89,10 +81,9 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel.createChangePasswordRequest()
         AlertDialog.Builder(this)
             .setMessage(
-                "Change password request sent to your email" +
-                        "${viewModel.getCurrentUser()?.email}"
+                assetWrapper.getString(R.string.text_change_pass_email) + viewModel.getCurrentUser()?.email
             )
-            .setPositiveButton("Okay") { _, _ ->
+            .setPositiveButton(assetWrapper.getString(R.string.text_okay)) { _, _ ->
             }.create().show()
     }
 
@@ -115,7 +106,7 @@ class EditProfileActivity : AppCompatActivity() {
                     binding.btnChangeProfile.isEnabled = true
                     Toast.makeText(
                         this,
-                        "Change Profile Failed : ${it.exception?.message}",
+                        assetWrapper.getString(R.string.text_change_profile_failed) + it.exception?.message,
                         Toast.LENGTH_SHORT
                     ).show()
                 }

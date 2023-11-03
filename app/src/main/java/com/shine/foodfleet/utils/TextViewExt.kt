@@ -1,4 +1,4 @@
-package com.shine.utils
+package com.shine.foodfleet.utils
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -27,5 +27,5 @@ fun TextView.highLightWord(word: String, onClick: () -> Unit) {
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     text = ssBuilder
-    movementMethod = LinkMovementMethod.getInstance();
+    movementMethod = LinkMovementMethod.getInstance()
 }

@@ -3,44 +3,33 @@ package com.shine.foodfleet.presentation.feature.checkout
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.shine.foodfleet.R
-import com.shine.foodfleet.data.local.database.AppDatabase
-import com.shine.foodfleet.data.local.database.datasource.CartDatabaseDataSource
-import com.shine.foodfleet.data.network.api.datasource.FoodFleetApiDataSource
-import com.shine.foodfleet.data.network.api.service.FoodFleetApiService
-import com.shine.foodfleet.data.repository.CartRepository
-import com.shine.foodfleet.data.repository.CartRepositoryImpl
 import com.shine.foodfleet.databinding.ActivityCheckoutBinding
 import com.shine.foodfleet.databinding.LayoutDialogSuccesBinding
 import com.shine.foodfleet.presentation.feature.cart.CartListAdapter
 import com.shine.foodfleet.presentation.feature.main.MainActivity
-import com.shine.utils.GenericViewModelFactory
-import com.shine.utils.proceedWhen
-import com.shine.utils.toCurrencyFormat
+import com.shine.foodfleet.utils.AssetWrapper
+import com.shine.foodfleet.utils.proceedWhen
+import com.shine.foodfleet.utils.toCurrencyFormat
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@Suppress("DEPRECATION")
 class CheckoutActivity : AppCompatActivity() {
 
     private val binding: ActivityCheckoutBinding by lazy {
         ActivityCheckoutBinding.inflate(layoutInflater)
     }
 
-    private val viewModel: CheckoutViewModel by viewModels {
-        val database = AppDatabase.getInstance(this)
-        val cartDao = database.cartDao()
-        val cartDataSource = CartDatabaseDataSource(cartDao)
-        val chuckerInterceptor = ChuckerInterceptor(this.applicationContext)
-        val service = FoodFleetApiService.invoke(chuckerInterceptor)
-        val apiDataSource = FoodFleetApiDataSource(service)
-        val repo: CartRepository = CartRepositoryImpl(cartDataSource, apiDataSource)
-        GenericViewModelFactory.create(CheckoutViewModel(repo))
-    }
+    private val viewModel: CheckoutViewModel by viewModel()
+
+    private val assetWrapper: AssetWrapper by inject()
 
     private val adapter: CartListAdapter by lazy {
         CartListAdapter()
@@ -50,7 +39,6 @@ class CheckoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         observeData()
         setClickListener()
     }
@@ -64,6 +52,11 @@ class CheckoutActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeData() {
+        observeCartData()
+        observeCheckoutResult()
+    }
+
     private fun showSuccessDialog() {
         val binding: LayoutDialogSuccesBinding =
             LayoutDialogSuccesBinding.inflate(layoutInflater)
@@ -75,13 +68,11 @@ class CheckoutActivity : AppCompatActivity() {
 
         binding.tvBack.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
-
         }
         dialog.show()
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun observeData() {
+    private fun observeCartData() {
         viewModel.cartListOrder.observe(this) { it ->
             it.proceedWhen(
                 doOnSuccess = {
@@ -95,7 +86,7 @@ class CheckoutActivity : AppCompatActivity() {
                     }
                     it.payload?.let { (carts, totalPrice) ->
                         adapter.setData(carts)
-                        binding.tvTotalPrice.text =  totalPrice.toCurrencyFormat()
+                        binding.tvTotalPrice.text = totalPrice.toCurrencyFormat()
                     }
                 },
                 doOnLoading = {
@@ -114,7 +105,7 @@ class CheckoutActivity : AppCompatActivity() {
                 doOnEmpty = {
                     binding.layoutState.root.isVisible = true
                     binding.layoutState.tvError.isVisible = true
-                    binding.layoutState.tvError.text = getString(R.string.cart_empty)
+                    binding.layoutState.tvError.text = assetWrapper.getString(R.string.text_cart_list_empty)
                     binding.layoutState.pbLoading.isVisible = false
                     binding.rvOrderList.isVisible = false
                     it.payload?.let { (_, totalPrice) ->
@@ -122,6 +113,26 @@ class CheckoutActivity : AppCompatActivity() {
                     }
                 }
 
+            )
+        }
+    }
+    private fun observeCheckoutResult() {
+        viewModel.checkoutResult.observe(this) {
+            it.proceedWhen(
+                doOnSuccess = {
+                    binding.layoutState.root.isVisible = false
+                    binding.layoutState.pbLoading.isVisible = false
+                    showSuccessDialog()
+                },
+                doOnError = {
+                    binding.layoutState.root.isVisible = false
+                    binding.layoutState.pbLoading.isVisible = false
+                    Toast.makeText(this, assetWrapper.getString(R.string.text_checkout_error), Toast.LENGTH_SHORT).show()
+                },
+                doOnLoading = {
+                    binding.layoutState.root.isVisible = true
+                    binding.layoutState.pbLoading.isVisible = true
+                }
             )
         }
     }

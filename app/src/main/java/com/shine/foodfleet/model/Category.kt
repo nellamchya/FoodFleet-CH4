@@ -8,5 +8,5 @@ import java.util.UUID
 data class Category(
     val categoryName: String,
     val categoryImage: String,
-    val id: String = UUID.randomUUID().toString(),
+    val id: String = UUID.randomUUID().toString()
 ) : Parcelable

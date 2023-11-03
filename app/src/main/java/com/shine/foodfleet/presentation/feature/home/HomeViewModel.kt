@@ -9,10 +9,9 @@ import com.shine.foodfleet.data.local.datastore.UserPreferenceDataSource
 import com.shine.foodfleet.data.repository.MenuRepository
 import com.shine.foodfleet.model.Category
 import com.shine.foodfleet.model.Menu
-import com.shine.utils.ResultWrapper
+import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 
 class HomeViewModel(
     private val repository: MenuRepository,
@@ -20,35 +19,34 @@ class HomeViewModel(
 ) : ViewModel() {
 
     private val _categories = MutableLiveData<ResultWrapper<List<Category>>>()
-    val categories : LiveData<ResultWrapper<List<Category>>>
+    val categories: LiveData<ResultWrapper<List<Category>>>
         get() = _categories
 
     private val _menus = MutableLiveData<ResultWrapper<List<Menu>>>()
-    val menus : LiveData<ResultWrapper<List<Menu>>>
+    val menus: LiveData<ResultWrapper<List<Menu>>>
         get() = _menus
 
     val userLayoutMode = userPreferenceDataSource.getUserLayoutModePrefFlow().asLiveData(Dispatchers.IO)
 
-    fun getCategories(){
+    fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getCategories().collect{
+            repository.getCategories().collect {
                 _categories.postValue(it)
             }
         }
     }
 
-    fun getMenus(category: String? = null){
+    fun getMenus(category: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getMenus(if(category == "all") null else category).collect{
+            repository.getMenus(if (category == "all") null else category).collect {
                 _menus.postValue(it)
             }
         }
     }
 
-    fun setUserLayoutMode(layoutMode: Int){
+    fun setUserLayoutMode(layoutMode: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             userPreferenceDataSource.setUserLayoutModePref(layoutMode)
         }
     }
-
 }

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
     tools:context=".presentation.feature.detailmenu.DetailMenuActivity">
 
     <LinearLayout
@@ -20,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/text_back_to_home" />
     </LinearLayout>
 
     <ScrollView
@@ -42,7 +42,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                android:src="@drawable/ic_sate_ayam"
+                android:contentDescription="@string/text_menu_image" />
 
             <TextView
                 android:id="@+id/tv_menu_name"
@@ -75,14 +76,15 @@
 
             <Button
                 android:id="@+id/bt_open_maps"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/ic_store_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/tv_menu_price"
-                app:layout_constraintTop_toBottomOf="@id/tv_menu_price" />
+                app:layout_constraintTop_toBottomOf="@id/tv_menu_price"
+                android:contentDescription="@string/text_buka_peta_lokasi_toko" />
 
             <TextView
                 android:id="@+id/tv_menu_location"
@@ -90,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_lokasi"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/bt_open_maps"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -167,7 +169,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/ic_decrement" />
+                android:src="@drawable/ic_decrement"
+                tools:ignore="NestedWeights"
+                android:contentDescription="@string/text_minus_cart" />
 
             <TextView
                 android:id="@+id/tv_menu_count"
@@ -186,17 +190,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:maxWidth="240dp"
-                android:src="@drawable/ic_increment" />
+                android:src="@drawable/ic_increment"
+                android:contentDescription="@string/text_add_to_cart" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_add_to_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="Add To Cart" />
+            android:text="@string/text_add_to_cart" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,34 +7,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.google.firebase.auth.FirebaseAuth
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSource
-import com.shine.foodfleet.data.network.firebase.auth.FirebaseAuthDataSourceImpl
-import com.shine.foodfleet.data.repository.UserRepository
-import com.shine.foodfleet.data.repository.UserRepositoryImpl
+import com.shine.foodfleet.R
 import com.shine.foodfleet.databinding.FragmentProfileBinding
 import com.shine.foodfleet.presentation.feature.login.LoginActivity
 import com.shine.foodfleet.presentation.feature.profile.editprofile.EditProfileActivity
-import com.shine.utils.GenericViewModelFactory
-
+import com.shine.foodfleet.utils.AssetWrapper
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
 
-    private val viewModel: ProfileViewModel by viewModels {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val dataSource: FirebaseAuthDataSource = FirebaseAuthDataSourceImpl(firebaseAuth)
-        val repo: UserRepository = UserRepositoryImpl(dataSource)
-        GenericViewModelFactory.create(ProfileViewModel(repo))
-    }
+    private val viewModel: ProfileViewModel by viewModel()
+
+    private val assetWrapper: AssetWrapper by inject()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -63,13 +56,12 @@ class ProfileFragment : Fragment() {
     private fun doLogout() {
         AlertDialog.Builder(requireContext())
             .setMessage(
-                "Do you want to logout ?"
+                assetWrapper.getString(R.string.text_logout_dialog)
             )
-            .setPositiveButton("Yes") { _, _ ->
+            .setPositiveButton(assetWrapper.getString(R.string.text_yes)) { _, _ ->
                 viewModel.doLogout()
                 navigateToLogin()
-            }.setNegativeButton("No") { _, _ ->
-
+            }.setNegativeButton(assetWrapper.getString(R.string.text_no)) { _, _ ->
             }.create().show()
     }
 
@@ -85,4 +77,3 @@ class ProfileFragment : Fragment() {
         binding.tvPersonalEmail.text = viewModel.getCurrentUser()?.email
     }
 }
-
