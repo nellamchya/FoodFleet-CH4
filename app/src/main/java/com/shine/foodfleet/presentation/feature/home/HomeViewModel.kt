@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.shine.foodfleet.R
 import com.shine.foodfleet.data.local.datastore.UserPreferenceDataSource
 import com.shine.foodfleet.data.repository.MenuRepository
 import com.shine.foodfleet.data.repository.UserRepository
@@ -51,10 +50,9 @@ class HomeViewModel(
         }
     }
 
-
     fun getMenus(category: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getMenus(if (category == assetWrapper.getString(R.string.text_all)) null else category?.lowercase()).collect {
+            repository.getMenus(if (category == "all") null else category).collect {
                 _menus.postValue(it)
             }
         }
