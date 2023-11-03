@@ -26,7 +26,6 @@
     <string name="menu_name">Nama Menu</string>
     <string name="menu_price">Harga Menu</string>
     <string name="tagline">Mau makan apa hari ini?</string>
-    <string name="icon_profile">Icon Profile</string>
     <string name="location_complete">Jl. BSD Green Office Park Jl. BSD Grand Boulevard, Sampora, BSD, Kabupaten Tangerang, Banten 15345</string>
     <string name="profile">Profile</string>
     <string name="total_quantity">x%s</string>
@@ -85,5 +84,4 @@
     <string name="text_cart">Cart</string>
     <string name="text_hai">Hai</string>
     <string name="text_nellam">Nellam</string>
-    <string name="text_all" translatable="false">All</string>
 </resources>
