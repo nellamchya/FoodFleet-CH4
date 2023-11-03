@@ -71,7 +71,9 @@ class HomeFragment : Fragment() {
                         isVisible = true
                         adapter = categoryAdapter
                     }
-                    it.payload?.let { data -> categoryAdapter.submitData(data) }
+                    it.payload?.let { data ->
+                        categoryAdapter.submitData(data)
+                    }
                 },
                 doOnLoading = {
                     binding.layoutStateCategory.root.isVisible = true

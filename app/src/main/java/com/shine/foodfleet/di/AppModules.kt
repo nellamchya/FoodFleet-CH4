@@ -24,7 +24,6 @@ import com.shine.foodfleet.presentation.feature.checkout.CheckoutViewModel
 import com.shine.foodfleet.presentation.feature.detailmenu.DetailMenuViewModel
 import com.shine.foodfleet.presentation.feature.home.HomeViewModel
 import com.shine.foodfleet.presentation.feature.login.LoginViewModel
-import com.shine.foodfleet.presentation.feature.main.MainViewModel
 import com.shine.foodfleet.presentation.feature.profile.ProfileViewModel
 import com.shine.foodfleet.presentation.feature.profile.editprofile.EditProfileViewModel
 import com.shine.foodfleet.presentation.feature.register.RegisterViewModel
@@ -71,7 +70,6 @@ object AppModules {
     }
 
     private val viewModelModule = module {
-        viewModelOf(::MainViewModel)
         viewModelOf(::HomeViewModel)
         viewModelOf(::CartViewModel)
         viewModelOf(::SplashViewModel)

@@ -51,6 +51,7 @@ class HomeViewModel(
         }
     }
 
+
     fun getMenus(category: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getMenus(if (category == assetWrapper.getString(R.string.text_all)) null else category?.lowercase()).collect {
