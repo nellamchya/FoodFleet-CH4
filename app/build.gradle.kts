@@ -60,11 +60,6 @@ android {
         buildConfig = true
     }
 }
-android {
-    lintOptions {
-        baseline(file("lint-baseline.xml"))
-    }
-}
 
 tasks.getByPath("preBuild").dependsOn("ktlintFormat")
 
