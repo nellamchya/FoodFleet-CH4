@@ -26,18 +26,10 @@ fun <T> ResultWrapper<T>.proceedWhen(
     doOnEmpty: ((resource: ResultWrapper<T>) -> Unit)? = null
 ) {
     when (this) {
-        is ResultWrapper.Success -> {
-            doOnSuccess?.invoke(this)
-        }
-        is ResultWrapper.Error -> {
-            doOnError?.invoke(this)
-        }
-        is ResultWrapper.Loading -> {
-            doOnLoading?.invoke(this)
-        }
-        is ResultWrapper.Empty -> {
-            doOnEmpty?.invoke(this)
-        }
+        is ResultWrapper.Success -> doOnSuccess?.invoke(this)
+        is ResultWrapper.Error -> doOnError?.invoke(this)
+        is ResultWrapper.Loading -> doOnLoading?.invoke(this)
+        is ResultWrapper.Empty -> doOnEmpty?.invoke(this)
     }
 }
 
@@ -54,7 +46,7 @@ suspend fun <T> proceed(block: suspend () -> T): ResultWrapper<T> {
     }
 }
 
-suspend fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
+fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
     return flow<ResultWrapper<T>> {
         val result = block.invoke()
         emit(
@@ -65,7 +57,7 @@ suspend fun <T> proceedFlow(block: suspend () -> T): Flow<ResultWrapper<T>> {
             }
         )
     }.catch { e ->
-        ResultWrapper.Error<T>(exception = Exception(e))
+        emit(ResultWrapper.Error(exception = Exception(e)))
     }.onStart {
         emit(ResultWrapper.Loading())
     }

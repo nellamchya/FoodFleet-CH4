@@ -107,7 +107,7 @@ class CartFragment : Fragment() {
                     binding.layoutState.root.isVisible = true
                     binding.layoutState.tvError.isVisible = true
                     binding.layoutState.tvError.isVisible = true
-                    binding.layoutState.tvError.text = assetWrapper.getString(R.string.empty_text)
+                    binding.layoutState.tvError.text = assetWrapper.getString(R.string.text_cart_list_empty)
                     binding.layoutState.pbLoading.isVisible = false
                     binding.rvCart.isVisible = false
                     it.payload?.let { (_, totalPrice) ->

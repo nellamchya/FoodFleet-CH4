@@ -48,6 +48,23 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getProfileData()
+    }
+
+    private fun getProfileData() {
+        viewModel.getProfileData()
+        observeData()
+    }
+
+    private fun observeData() {
+        viewModel.getProfileResult.observe(viewLifecycleOwner) {
+            showDataUser()
+            viewModel.getProfileData()
+        }
+    }
+
     private fun navigateToEditProfile() {
         val intent = Intent(requireContext(), EditProfileActivity::class.java)
         startActivity(intent)
@@ -73,7 +90,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showDataUser() {
-        binding.tvPersonalName.text = viewModel.getCurrentUser()?.fullName
-        binding.tvPersonalEmail.text = viewModel.getCurrentUser()?.email
+        binding.tvPersonalName.text = viewModel.getCurrentUser()?.fullName.toString()
+        binding.tvPersonalEmail.text = viewModel.getCurrentUser()?.email.toString()
     }
 }

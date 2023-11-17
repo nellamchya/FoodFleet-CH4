@@ -6,14 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.shine.foodfleet.data.repository.CartRepository
-import com.shine.foodfleet.data.repository.UserRepository
 import com.shine.foodfleet.utils.ResultWrapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CheckoutViewModel(
-    private val cartRepo: CartRepository,
-    private val userRepo: UserRepository
+    private val cartRepo: CartRepository
 ) : ViewModel() {
     val cartListOrder = cartRepo.getCartData().asLiveData(Dispatchers.IO)
 

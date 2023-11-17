@@ -48,7 +48,7 @@ class CheckoutActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding.clActionOrder.setOnClickListener {
-            showSuccessDialog()
+            viewModel.order()
         }
     }
 
@@ -68,6 +68,7 @@ class CheckoutActivity : AppCompatActivity() {
 
         binding.tvBack.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            viewModel.deleteAllCart()
         }
         dialog.show()
     }

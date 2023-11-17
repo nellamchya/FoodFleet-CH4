@@ -9,7 +9,6 @@ interface CartDataSource {
     fun getAllCarts(): Flow<List<CartEntity>>
     fun getCartById(cartId: Int): Flow<CartEntity>
     suspend fun insertCart(cart: CartEntity): Long
-    suspend fun insertCarts(cart: List<CartEntity>)
     suspend fun deleteCart(cart: CartEntity): Int
     suspend fun updateCart(cart: CartEntity): Int
     suspend fun deleteAllCartItems()
@@ -28,10 +27,6 @@ class CartDatabaseDataSource(
 
     override suspend fun insertCart(cart: CartEntity): Long {
         return cartDao.insertCart(cart)
-    }
-
-    override suspend fun insertCarts(cart: List<CartEntity>) {
-        return cartDao.insertCarts(cart)
     }
 
     override suspend fun deleteCart(cart: CartEntity): Int {

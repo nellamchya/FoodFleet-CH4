@@ -14,6 +14,7 @@ import com.shine.foodfleet.utils.proceed
 import com.shine.foodfleet.utils.proceedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -53,6 +54,10 @@ class CartRepositoryImpl(
                     it
                 }
             }.onStart {
+            }.catch {
+                emit(ResultWrapper.Error(Exception(it)))
+            }
+            .onStart {
                 emit(ResultWrapper.Loading())
                 delay(2000)
             }

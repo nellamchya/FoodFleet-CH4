@@ -42,6 +42,7 @@ class HomeViewModel(
         _getProfileResult.postValue(data)
     }
     fun getCurrentUser() = userRepo.getCurrentUser()
+
     fun getCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getCategories().collect {
@@ -49,7 +50,6 @@ class HomeViewModel(
             }
         }
     }
-
     fun getMenus(category: String? = null) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.getMenus(if (category == "all") null else category).collect {
